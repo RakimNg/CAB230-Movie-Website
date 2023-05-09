@@ -1,13 +1,31 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
+
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { Nav, NavItem, Container, Row, Col, Card, CardGroup, CardBody, CardTitle, CardText, CardSubtitle, Button, CardImg, UncontrolledCarousel, Label, Input } from 'reactstrap';
+import { useEffect, useState } from 'react';
+import { Homepage } from './component/homepage';
+import { MoviesLib } from './component/Movies';
+
+import { RouterProvider, createBrowserRouter, BrowserRouter, Routes, Router, Route, NavLink } from "react-router-dom";
+
+const router = createBrowserRouter([{
+  path: "/",
+  element: (<Homepage />),
+},
+{
+  // element: <p>Heelo</p>,
+  path: "movies",
+  element: (<MoviesLib />)
+
+}])
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
 

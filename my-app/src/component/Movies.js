@@ -5,7 +5,8 @@ export function MoviesLib() {
     return (
 
         < div >
-            <p>Heello</p>
+            <Navigation />
+            <p>Hello World</p>
 
         </div >
     )
