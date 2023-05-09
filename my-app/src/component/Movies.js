@@ -3,14 +3,19 @@ import React, { useEffect, useState } from 'react';
 import { Nav, NavItem, NavLink, Container, Row, Col, Card, CardGroup, CardBody, CardTitle, CardText, CardSubtitle, Button, CardImg, UncontrolledCarousel, Label, Input } from 'reactstrap';
 import { Navigation } from './base';
 function Headline(props) {
+    const [records, setRecords] = useState([])
+
+    const Filter = (event) => {
+        setRecords(props.data.filter(f => f.title.toLowerCase().includes(event.target.value)))
+    }
     return (
         <div className='p-5 bg-light'>
             <div className='bg-white shadow border'>
-
+                <input type="text" className='form-control' onChange={Filter} placeholder='Search movie name' />
                 <table className='table'>
                     <thead>
                         <tr>
-                            <th>ID</th>
+
                             <th>Title</th>
                             <th>Year</th>
                             <th>imdbRating</th>
@@ -21,7 +26,7 @@ function Headline(props) {
                     <tbody>
 
 
-                        {props.data.map((prop) => (
+                        {records.map((prop) => (
 
                             <tr key={prop.imdbID} >
 
@@ -53,7 +58,7 @@ const useData = () => {
     useEffect(() => {
         const getData = async () => {
             try {
-                const res = await fetch('http://sefdb02.qut.edu.au:3000/movies/search?title=Star%20War');
+                const res = await fetch('http://sefdb02.qut.edu.au:3000/movies/search?title=a');
                 const data = await res.json();
                 const dataArray = data;
 
@@ -91,15 +96,7 @@ export function MoviesLib() {
         <header>Welcome to movies library</header>
 
         <Headline{...headlines} />
-        {/* {headlines.map((headline) => (
-            <Headline
-                key={headline.imdbID}
-                title={headline.title}
-                year={headline.year}
-                imdbRating={headline.imdbRating}
-                classification={headline.classification}
-            />
-        ))} */}
+
         {/* <p>{title}</p> */}
 
     </div>)
