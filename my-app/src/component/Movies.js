@@ -1,13 +1,18 @@
 
 import React, { useEffect, useState } from 'react';
 import { Nav, NavItem, NavLink, Container, Row, Col, Card, CardGroup, CardBody, CardTitle, CardText, CardSubtitle, Button, CardImg, UncontrolledCarousel, Label, Input } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import { Navigation } from './base';
+import { MoviePage, SearchMovieID } from './movie';
+
 function Headline(props) {
     const [records, setRecords] = useState([])
 
     const Filter = (event) => {
-        setRecords(props.data.filter(f => f.title.toLowerCase().includes(event.target.value)))
+        setRecords(props.data.filter(f => f.title.toLowerCase().includes(event.target.value.toLowerCase())))
+
     }
+
     return (
         <div className='p-5 bg-light'>
             <div className='bg-white shadow border'>
@@ -29,12 +34,16 @@ function Headline(props) {
                         {records.map((prop) => (
 
                             <tr key={prop.imdbID} >
-
+                                {/* <td>{console.log(prop)}</td> */}
                                 <td>{prop.title}</td>
                                 <td>{prop.year}</td>
                                 <td>{prop.imdbRating}</td>
                                 <td>{prop.classification}</td>
-                                <td>Inactive link</td>
+                                <Link to={`/movie/`}>
+                                    <td><Button color="primary" onClick={() => saveData(prop.imdbID)}>
+                                        Details
+                                    </Button></td>
+                                </Link>
                             </tr>
 
                         ))}
@@ -48,6 +57,15 @@ function Headline(props) {
 
 
     )
+}
+const saveData = (id) => {
+
+    let data = id
+    if (data.startsWith("tt")) {
+        console.log(data)
+        MoviePage(data)
+    }
+
 }
 const useData = () => {
     const [loading, setLoading] = useState(true);

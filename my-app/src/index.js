@@ -8,9 +8,10 @@ import { Nav, NavItem, Container, Row, Col, Card, CardGroup, CardBody, CardTitle
 import { useEffect, useState } from 'react';
 import { Homepage } from './component/homepage';
 import { MoviesLib } from './component/Movies';
-
+import { MoviePage, SearchMovieID } from './component/movie';
 import { RouterProvider, createBrowserRouter, BrowserRouter, Routes, Router, Route, NavLink } from "react-router-dom";
-
+import { Register } from './component/register';
+import { Login } from './component/login';
 const router = createBrowserRouter([{
   path: "/",
   element: (<Homepage />),
@@ -20,7 +21,20 @@ const router = createBrowserRouter([{
   path: "movies",
   element: (<MoviesLib />)
 
-}])
+},
+{
+  path: "movie",
+  element: (<MoviePage />)
+},
+{
+  path: "register",
+  element: (<Register />)
+},
+{
+  path: "login",
+  element: (<Login />)
+}
+])
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

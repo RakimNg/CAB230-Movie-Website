@@ -3,6 +3,13 @@ import React, { useEffect, useState } from 'react';
 import { Nav, NavItem, NavLink, Container, Row, Col, Card, CardGroup, CardBody, CardTitle, CardText, CardSubtitle, Button, CardImg, UncontrolledCarousel, Label, Input } from 'reactstrap';
 import { Navigation } from './base';
 export function Headline(props) {
+    const dataArray = props.data;
+    const MovieToday = [dataArray[0], dataArray[1], dataArray[2]]
+    const imgURL1 = "https://picsum.photos/id/217/200/200"
+    const imgURL2 = "https://picsum.photos/id/233/200/200"
+    const imgURL3 = "https://picsum.photos/id/231/200/200"
+    const imgArr = [imgURL1, imgURL2, imgURL3]
+    console.log(MovieToday)
     return (
         <div>
 
@@ -11,35 +18,46 @@ export function Headline(props) {
 
                 <Row>
                     <CardGroup>
+                        {MovieToday.map((props, index) => (
+                            <Col sm={3}>
 
-                        <Col sm={4}>
-                            <Card>
+                                <Card>
 
-
-
-
-
-                                <CardBody>
-                                    <CardTitle tag="h5">
-                                        {props.title} - {props.year}
-                                    </CardTitle>
-                                    <CardSubtitle
-                                        className="mb-2 text-muted"
-                                        tag="h6"
-                                    >
-                                        <li>imdbRating: {props.imdbRating}</li>
-                                    </CardSubtitle>
-                                    <CardText>
-                                        <li>Classification: {props.classification}</li>
-                                    </CardText>
-                                    <Button>
-                                        View
-                                    </Button>
-                                </CardBody>
-                            </Card>
-                        </Col>
+                                    <CardImg
+                                        alt="Card image cap"
+                                        src={imgArr[index]}
+                                        top
+                                        width="100%"
+                                    />
 
 
+
+                                    <CardBody>
+
+                                        <CardTitle tag="h5">
+                                            {props.title} - {props.year}
+                                        </CardTitle>
+                                        <CardSubtitle
+                                            className="mb-2 text-muted"
+                                            tag="h6"
+                                        >
+                                            <li>imdbRating: {props.imdbRating}</li>
+                                        </CardSubtitle>
+                                        <CardText>
+                                            <li>Classification: {props.classification}</li>
+                                        </CardText>
+
+                                        <Button>
+                                            View
+                                        </Button>
+
+                                    </CardBody>
+
+                                </Card>
+
+                            </Col>
+
+                        ))}
                     </CardGroup>
                 </Row>
             </Container>
@@ -57,11 +75,11 @@ export const useData = () => {
     useEffect(() => {
         const getData = async () => {
             try {
-                const res = await fetch('http://sefdb02.qut.edu.au:3000/movies/search?title=');
+                const res = await fetch('http://sefdb02.qut.edu.au:3000/movies/search?title=Avengers');
                 const data = await res.json();
-                const dataArray = data.data;
-                const MovieToday = [dataArray[0], dataArray[1], dataArray[2]]
-                setHeadlines(MovieToday);
+                // const dataArray = data.data;
+                // const MovieToday = [dataArray[0], dataArray[1], dataArray[2]]
+                setHeadlines(data);
             } catch (error) {
                 setError(error);
             } finally {
@@ -93,7 +111,8 @@ export function Homepage() {
 
         <Navigation />
         <header>Welcome user1234</header>
-        {headlines.map((headline) => (
+        <Headline{...headlines} />
+        {/* {headlines.map((headline) => (
             <Headline
                 key={headline.imdbID}
                 title={headline.title}
@@ -101,8 +120,9 @@ export function Homepage() {
                 imdbRating={headline.imdbRating}
                 classification={headline.classification}
             />
-        ))}
+        ))} */}
         {/* <p>{title}</p> */}
 
     </div>)
+
 }
