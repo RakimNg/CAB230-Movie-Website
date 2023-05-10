@@ -32,7 +32,7 @@ export function Register() {
             .catch(error => {
                 console.error(error);
             });
-        navigate('/');
+        navigate('/login');
     };
 
 
