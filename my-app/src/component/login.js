@@ -6,6 +6,7 @@ import { Register } from './register';
 export function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState(null);
     const navigate = useNavigate();
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -26,10 +27,13 @@ export function Login() {
             .then(data => {
                 console.log(data);
             })
+
             .catch(error => {
-                console.error(error);
-            });
-        navigate('/');
+                console.error('Error logging in:', error);
+                setError('An unexpected error occurred. Please try again later.');
+            })
+
+
     };
 
     return (
@@ -65,6 +69,9 @@ export function Login() {
                     </div>
                     <div>
                         <Link to={'/'}> Visitor Mode </Link>
+                    </div>
+                    <div>
+                        {error && <p>{error}</p>}
                     </div>
                 </form>
             </div>

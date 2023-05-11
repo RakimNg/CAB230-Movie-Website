@@ -1,14 +1,19 @@
 import { MoviesLib } from './Movies';
 import { Navigation } from './base';
 import React, { useEffect, useState } from 'react';
-export function MoviePage(imdbID) {
-    console.log(imdbID)
-    useEffect(
-        () => {
-            console.log(imdbID)
-
-        }, [imdbID])
+export const MoviePage = (prop) => {
+    const ID = prop.json();
+    const ID1 = ID.imdbID();
+    console.log(ID1)
 }
+// export function MoviePage(imdbID) {
+//     console.log(imdbID)
+//     useEffect(
+//         () => {
+//             console.log(imdbID)
+
+//         }, [imdbID])
+// }
 // export function MoviePage(imdbID) {
 //     // const [loading, setLoading] = useState(true);
 //     // const [error, setError] = useState(null);

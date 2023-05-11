@@ -3,11 +3,11 @@ import React, { useEffect, useState } from 'react';
 import { Nav, NavItem, NavLink, Container, Row, Col, Card, CardGroup, CardBody, CardTitle, CardText, CardSubtitle, Button, CardImg, UncontrolledCarousel, Label, Input } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Navigation } from './base';
-import { MoviePage, SearchMovieID } from './movie';
+
 
 function Headline(props) {
     const [records, setRecords] = useState([])
-
+    const [error, setError] = useState(null);
     const Filter = (event) => {
         setRecords(props.data.filter(f => f.title.toLowerCase().includes(event.target.value.toLowerCase())))
 
@@ -40,7 +40,14 @@ function Headline(props) {
                                 <td>{prop.imdbRating}</td>
                                 <td>{prop.classification}</td>
                                 <Link to={`/movie/`}>
-                                    <td><Button color="primary" onClick={() => saveData(prop.imdbID)}>
+                                    <td><Button color="primary" onClick={() => {
+                                        FetchData(prop.imdbID)
+
+
+                                    }
+
+
+                                    }>
                                         Details
                                     </Button></td>
                                 </Link>
@@ -58,15 +65,41 @@ function Headline(props) {
 
     )
 }
-const saveData = (id) => {
+export async function FetchData(imdbID) {
 
-    let data = id
-    if (data.startsWith("tt")) {
-        console.log(data)
-        MoviePage(data)
+    try {
+        const response = await fetch(`http://sefdb02.qut.edu.au:3000/movies/data/${encodeURIComponent(imdbID)}`)
+        const data = await response.json();
+        const country = data.country;
+        console.log(country);
+        // MoviePage(country);
+
+
+
+
+
+    }
+    catch (error) {
+
+        console.log("captured")
     }
 
+
+
+
 }
+export const MoviePage = () => {
+
+}
+
+
+
+
+
+
+
+// }
+
 const useData = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
