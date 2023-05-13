@@ -27,7 +27,7 @@ export function Navigation() {
                 <NavItem>
 
                     <NavLink to="/movies" activeClassName="active-link">
-                        Movies==|
+                        Search==|
                     </NavLink>
 
                 </NavItem>

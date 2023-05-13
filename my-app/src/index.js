@@ -7,11 +7,12 @@ import reportWebVitals from './reportWebVitals';
 import { Nav, NavItem, Container, Row, Col, Card, CardGroup, CardBody, CardTitle, CardText, CardSubtitle, Button, CardImg, UncontrolledCarousel, Label, Input } from 'reactstrap';
 import { useEffect, useState } from 'react';
 import { Homepage } from './component/homepage';
-import { MoviesLib, ResultPage } from './component/Movies';
+import { MoviesLib } from './component/Movies';
 import { RouterProvider, createBrowserRouter, BrowserRouter, Routes, Router, Route, NavLink } from "react-router-dom";
 import { Register } from './component/register';
 import { Login } from './component/login';
 import { MoviePage } from './component/movie';
+import { PersonPage } from './component/person';
 const router = createBrowserRouter([{
   path: "/",
   element: (<Homepage />),
@@ -35,8 +36,8 @@ const router = createBrowserRouter([{
   element: (<Login />)
 },
 {
-  path: "result",
-  element: (<ResultPage />)
+  path: "person",
+  element: (<PersonPage />)
 }
 ])
 

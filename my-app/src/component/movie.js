@@ -10,6 +10,7 @@ export const MoviePage = () => {
     const [error, setError] = useState()
     const handleInputChange = (event) => {
         setRecords(event.target.value);
+        console.log(typeof event.target.value)
         console.log(records)
     }
     const handleSubmit = (event) => {
@@ -45,23 +46,43 @@ export const MoviePage = () => {
         }, [data]
 
     )
+    const join = (array) => {
+        const updated = array.join(" & ")
+        console.log(updated)
+        return updated
+    }
 
-    const mapPrincipals = () => {
+    const mapData = () => {
         const principals_arr = headlines?.principals
+        const ratings_arr = headlines?.ratings
+        const genres_arr = headlines?.genres
         console.log(principals_arr)
-        if (!headlines || !principals_arr) {
+        if (!headlines || !principals_arr || !ratings_arr || !genres_arr) {
             return null;
         }
+
+
         return (
 
 
-            <div>
-                <p>{headlines.title}</p>
-                <p>{headlines.year}</p>
-                <p>{headlines.country}</p>
+            <div class="text-center">
+                <p>Title: {headlines.title}</p>
+                <p>Year: {headlines.year}</p>
+                <p>Country: {headlines.country}</p>
+                <p>Plot Description: {headlines.plot}</p>
+                <p>Genres: {join(genres_arr)}</p>
+                <p>Boxoffice: {headlines.boxoffice}</p>
+
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     <img src={headlines.poster} alt="Image description"></img>
                 </div >
+                <p>Ratings:</p>
+                {ratings_arr.map((rating, index) => (
+                    <div key={index}>
+                        <p>{index + 1}.{rating.source}: {rating.value}</p>
+
+                    </div>
+                ))}
                 <p>Characters:</p>
                 {principals_arr.map((principal) => (
                     <div key={principal.id}>
@@ -84,6 +105,8 @@ export const MoviePage = () => {
 
 
 
+
+
     };
     // fetchData();
 
@@ -95,20 +118,28 @@ export const MoviePage = () => {
         return <p>Something went wrong: {error.message}</p>;
     }
     return (
-        <div className='p-5 bg-light'>
-            <form onSubmit={handleSubmit}>
-                <input type="text" className='form-control' value={records} onChange={handleInputChange} placeholder='Search movie name' />
-                <button type="submit">Search</button>
+        <div>
+            <Navigation />
 
-            </form>
-            <div>
-                {mapPrincipals()}
 
-            </div>
-            {/* {} */}
-            {/* {headlines && <p>{headlines.title}</p> && <p>{headlines.year}</p> && <p>{headlines.country}</p> && mapPrincipals()} */}
+            <div className='p-5 bg-light'>
 
-        </div >
+                <form onSubmit={handleSubmit}>
+                    <div style={{ display: 'flex' }}>
+                        <input type="text" className='form-control' value={records} onChange={handleInputChange} placeholder='Search movie imdbID' />
+                        <button type="submit">Search</button>
+                    </div>
+                </form>
+
+                <div>
+                    {mapData()}
+
+                </div>
+                {/* {} */}
+                {/* {headlines && <p>{headlines.title}</p> && <p>{headlines.year}</p> && <p>{headlines.country}</p> && mapPrincipals()} */}
+
+            </div >
+        </div>
 
     )
 }

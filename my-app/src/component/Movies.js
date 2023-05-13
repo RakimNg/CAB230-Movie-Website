@@ -72,19 +72,7 @@ export function Headline(props) {
                         Details
                     </Button></td>
                     <td>
-                        <Link to={`/movie/`}>
-                            <Button color="primary" onClick={() => {
 
-
-                            }
-
-
-
-
-                            }>
-                                Search with imdbID
-                            </Button>
-                        </Link>
                     </td>
                     {/* {loading && <p>Loading...</p>}
                     {
@@ -106,7 +94,35 @@ export function Headline(props) {
     return (
         <div className='p-5 bg-light'>
             <div className='bg-white shadow border'>
-                <input type="text" className='form-control' onChange={Filter} placeholder='Search movie name' />
+                <div style={{ display: 'flex' }}>
+                    <input type="text" className='form-control' onChange={Filter} placeholder='Search movie name' />
+                    <Link to={`/movie/`}>
+                        <Button color="primary" onClick={() => {
+
+
+                        }
+
+
+
+
+                        }>
+                            Search with imdbID
+                        </Button>
+                    </Link>
+                    <Link to={`/person/`}>
+                        <Button color="danger" onClick={() => {
+
+
+                        }
+
+
+
+
+                        }>
+                            Search people
+                        </Button>
+                    </Link>
+                </div>
                 <table className='table'>
                     <thead>
                         <tr>
