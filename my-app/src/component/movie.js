@@ -13,33 +13,78 @@ export const MoviePage = () => {
         console.log(records)
     }
     const handleSubmit = (event) => {
-        setLoading(true)
+        // setLoading(true)
         event.preventDefault();
         setData(records)
-        fetchData(data)
+        // fetchData(data)
 
 
     }
-    // useEffect(() => {
-    const fetchData = async () => {
-        try {
-            const response = await fetch(`http://sefdb02.qut.edu.au:3000/movies/data/${encodeURIComponent(data)}`)
-            const data1 = await response.json();
-            // const country = await data1.country;
+    useEffect(
+        () => {
+            const fetchData = async () => {
+                try {
+                    const response = await fetch(`http://sefdb02.qut.edu.au:3000/movies/data/${encodeURIComponent(data)}`)
+                    const data1 = await response.json();
+                    // const country = await data1.country;
 
-            setHeadlines(data1)
-            console.log(headlines)
-        }
-        catch (error) {
-            setError(error)
-            console.log(error)
-        }
-        finally {
-            setLoading(false)
-        }
+                    setHeadlines(data1)
+
+                }
+                catch (error) {
+                    setError(error)
+                    console.log(error)
+                }
+                finally {
+                    setLoading(false)
+                }
 
 
-    }
+            }
+            fetchData();
+        }, [data]
+
+    )
+
+    const mapPrincipals = () => {
+        const principals_arr = headlines?.principals
+        console.log(principals_arr)
+        if (!headlines || !principals_arr) {
+            return null;
+        }
+        return (
+
+
+            <div>
+                <p>{headlines.title}</p>
+                <p>{headlines.year}</p>
+                <p>{headlines.country}</p>
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <img src={headlines.poster} alt="Image description"></img>
+                </div >
+                <p>Characters:</p>
+                {principals_arr.map((principal) => (
+                    <div key={principal.id}>
+                        <p>ID: {principal.id} Category: {principal.category} Name: {principal.name} Character: {principal.character}</p>
+
+                    </div>
+                ))}
+
+
+            </div>
+
+
+
+
+        );
+
+
+
+
+
+
+
+    };
     // fetchData();
 
     // }, [data])
@@ -54,28 +99,14 @@ export const MoviePage = () => {
             <form onSubmit={handleSubmit}>
                 <input type="text" className='form-control' value={records} onChange={handleInputChange} placeholder='Search movie name' />
                 <button type="submit">Search</button>
+
             </form>
+            <div>
+                {mapPrincipals()}
 
-            <p>{headlines.title}</p>
-            <p>{headlines.year}</p>
-            <p>{headlines.country}</p>
-
-
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <img src={headlines.poster} alt="Image description"></img>
-                {/* {
-                    headlines && (
-                        // <Link to={{ pathname: "/result", state: { headlines } }}>View Result</Link>
-                        <p>{headlines.title}</p>
-                        
-                        
-                    )
-                } */}
-
-
-            </div >
-
-
+            </div>
+            {/* {} */}
+            {/* {headlines && <p>{headlines.title}</p> && <p>{headlines.year}</p> && <p>{headlines.country}</p> && mapPrincipals()} */}
 
         </div >
 
