@@ -37,8 +37,8 @@ export function Register() {
 
 
     return (
-        <div className="register-page-container">
-            <div className="register-panel">
+        <div className="page-container">
+            <div className="panel">
                 <h2>Register</h2>
                 <form onSubmit={handleSubmit}>
                     <div>

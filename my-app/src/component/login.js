@@ -37,8 +37,8 @@ export function Login() {
     };
 
     return (
-        <div className="register-page-container">
-            <div className="register-panel">
+        <div className="page-container">
+            <div className="panel">
                 <h2>Log In</h2>
                 <form onSubmit={handleSubmit}>
                     <div>

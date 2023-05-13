@@ -1,11 +1,11 @@
-.register-page-container {
+.page-container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
 }
 
-.register-panel {
+.panel {
     background-color: #fff;
     padding: 20px;
     border-radius: 5px;

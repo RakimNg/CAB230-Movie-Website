@@ -1,15 +1,105 @@
 
 import React, { useEffect, useState } from 'react';
 import { Nav, NavItem, NavLink, Container, Row, Col, Card, CardGroup, CardBody, CardTitle, CardText, CardSubtitle, Button, CardImg, UncontrolledCarousel, Label, Input } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Navigation } from './base';
 
+export function ResultPage() {
+    const location = useLocation();
+    const { data } = location.state;
 
-function Headline(props) {
+    return (
+        <div>
+            <h1>Result</h1>
+            <p>{JSON.stringify(data)}</p>
+        </div>
+    );
+}
+
+export function Headline(props) {
     const [records, setRecords] = useState([])
     const [error, setError] = useState(null);
+    const [headlines, setHeadlines] = useState([null])
+    const [loading, setLoading] = useState(true)
+    const navigate = useNavigate()
     const Filter = (event) => {
+
+        // console.log(Number(event.target.value) - 2)
+        // else {
         setRecords(props.data.filter(f => f.title.toLowerCase().includes(event.target.value.toLowerCase())))
+        // }
+        console.log(records)
+    }
+    const handleClick = async (imdbID) => {
+        console.log(loading)
+        // setLoading(true);
+        const response = await fetch(`http://sefdb02.qut.edu.au:3000/movies/data/${encodeURIComponent(imdbID)}`)
+        const data = await response.json();
+        const country = await data.country;
+        setLoading(false);
+        setHeadlines(country)
+        console.log(headlines)
+
+    }
+    const mapData = () => {
+        return (
+
+            records.map((prop) => (
+
+                <tr key={prop.imdbID} >
+                    {/* <td>{console.log(prop)}</td> */}
+                    <td>{prop.title}</td>
+                    <td>{prop.year}</td>
+                    <td>{prop.imdbRating}</td>
+                    <td>{prop.classification}</td>
+                    <td>{prop.imdbID}</td>
+                    {/* <Link to={`/movie/`}> */}
+                    <td><Button color="primary" onClick={() => {
+                        // setHeadlines(prop.imdbID)
+                        // setHeadlines(prop.imdbID)
+
+                        // .then(handleClick()) 
+                        // MoviePage(prop.imdbID)
+                        console.log(typeof prop.year)
+                        handleClick(prop.imdbID)
+                        // FetchData(prop.imdbID)
+                    }
+
+
+
+
+                    }>
+                        Details
+                    </Button></td>
+                    <td>
+                        <Link to={`/movie/`}>
+                            <Button color="primary" onClick={() => {
+
+
+                            }
+
+
+
+
+                            }>
+                                Search with imdbID
+                            </Button>
+                        </Link>
+                    </td>
+                    {/* {loading && <p>Loading...</p>}
+                    {
+                        headlines && (
+                            // <Link to={{ pathname: "/result", state: { headlines } }}>View Result</Link>
+                            <p>{headlines}</p>
+                        )
+                    } */}
+
+                </tr>
+
+            )
+            )
+
+        )
 
     }
 
@@ -25,35 +115,14 @@ function Headline(props) {
                             <th>Year</th>
                             <th>imdbRating</th>
                             <th>Classification</th>
+                            <th>imdbID</th>
                             <th>Link</th>
                         </tr>
                     </thead>
                     <tbody>
+                        {mapData()}
 
 
-                        {records.map((prop) => (
-
-                            <tr key={prop.imdbID} >
-                                {/* <td>{console.log(prop)}</td> */}
-                                <td>{prop.title}</td>
-                                <td>{prop.year}</td>
-                                <td>{prop.imdbRating}</td>
-                                <td>{prop.classification}</td>
-                                <Link to={`/movie/`}>
-                                    <td><Button color="primary" onClick={() => {
-                                        FetchData(prop.imdbID)
-
-
-                                    }
-
-
-                                    }>
-                                        Details
-                                    </Button></td>
-                                </Link>
-                            </tr>
-
-                        ))}
                     </tbody>
                 </table >
             </div >
@@ -65,37 +134,28 @@ function Headline(props) {
 
     )
 }
-export async function FetchData(imdbID) {
-
-    try {
-        const response = await fetch(`http://sefdb02.qut.edu.au:3000/movies/data/${encodeURIComponent(imdbID)}`)
-        const data = await response.json();
-        const country = data.country;
-        console.log(country);
-        // MoviePage(country);
 
 
 
 
 
-    }
-    catch (error) {
 
-        console.log("captured")
-    }
-
-
-
-
+export const renderComponent = (country) => {
+    console.log(typeof country)
+    return (
+        <div>
+            <p>
+                The Country is: {country}
+            </p>
+        </div>
+    )
 }
-export const MoviePage = () => {
-
+export function DisplayData() {
+    const [loaded, setLoaded] = useState(false);
+    const [headlines, setHeadlines] = useState([])
+    setLoaded(true)
+    console.log(loaded)
 }
-
-
-
-
-
 
 
 // }

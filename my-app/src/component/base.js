@@ -4,9 +4,6 @@ import { Homepage } from './homepage';
 import { MoviesLib } from './Movies';
 import { RouterProvider, createBrowserRouter, BrowserRouter, Routes, Router, Route, NavLink } from "react-router-dom";
 export function Navigation() {
-    const EmptyComponent = () => null;
-
-
     return (
 
         <div>
@@ -16,11 +13,15 @@ export function Navigation() {
 
             <Nav
             >
+
                 <NavItem>
                     <NavLink to="/" activeClassName="active-link">
 
                         |Home==|
                     </NavLink>
+                </NavItem>
+                <NavItem>
+
                 </NavItem>
 
                 <NavItem>
