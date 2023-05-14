@@ -26,7 +26,12 @@ export function Login() {
             .then(response => response.json())
             .then(data => {
                 console.log(data);
+                // console.log(res)
+                localStorage.setItem("token", data.bearerToken.token);
+                // console.log(res);
             })
+
+
 
             .catch(error => {
                 console.error('Error logging in:', error);
