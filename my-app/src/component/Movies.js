@@ -23,10 +23,15 @@ export function Headline(props) {
     const [loading, setLoading] = useState(true)
     const navigate = useNavigate()
     const Filter = (event) => {
-
+        const regex = /^tt\d{7}$/;
         // console.log(Number(event.target.value) - 2)
-        // else {
-        setRecords(props.data.filter(f => f.title.toLowerCase().includes(event.target.value.toLowerCase())))
+        if (regex.test(event.target.value)) {
+            setRecords(props.data.filter(f => f.imdbID === event.target.value))
+        }
+        else {
+            setRecords(props.data.filter(f => f.title.toLowerCase().includes(event.target.value.toLowerCase())))
+
+        }
         // }
         console.log(records)
     }
@@ -53,24 +58,16 @@ export function Headline(props) {
                     <td>{prop.imdbRating}</td>
                     <td>{prop.classification}</td>
                     <td>{prop.imdbID}</td>
-                    {/* <Link to={`/movie/`}> */}
-                    <td><Button color="primary" onClick={() => {
-                        // setHeadlines(prop.imdbID)
-                        // setHeadlines(prop.imdbID)
+                    <Link to={`/movie/`}>
+                        <td><Button color="primary" onClick={() => {
+                            localStorage.setItem("imdbID", prop.imdbID);
+                            const ID = localStorage.getItem("imdbID")
+                            console.log(ID)
 
-                        // .then(handleClick()) 
-                        // MoviePage(prop.imdbID)
-                        console.log(typeof prop.year)
-                        handleClick(prop.imdbID)
-                        // FetchData(prop.imdbID)
-                    }
-
-
-
-
-                    }>
-                        Details
-                    </Button></td>
+                        }}>
+                            Details
+                        </Button></td>
+                    </Link>
                     <td>
 
                     </td>
@@ -95,7 +92,7 @@ export function Headline(props) {
         <div className='p-5 bg-light'>
             <div className='bg-white shadow border'>
                 <div style={{ display: 'flex' }}>
-                    <input type="text" className='form-control' onChange={Filter} placeholder='Search movie name' />
+                    <input type="text" className='form-control' onChange={Filter} placeholder='Search movie name or movie ID' />
                     <Link to={`/movie/`}>
                         <Button color="primary" onClick={() => {
 

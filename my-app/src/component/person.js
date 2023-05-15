@@ -25,6 +25,7 @@ export const PersonPage = () => {
     useEffect(() => {
         const fetchData = async () => {
             const token = localStorage.getItem("token")
+            console.log(token)
             try {
                 const response = await fetch(`http://sefdb02.qut.edu.au:3000/people/${encodeURIComponent(data)}`, {
                     method: "GET",

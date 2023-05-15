@@ -100,6 +100,7 @@ export function Homepage() {
 
     const { loading, error, headlines } = useData();
     if (loading) {
+
         return <p>loading...</p>;
     }
 
@@ -110,7 +111,6 @@ export function Homepage() {
     return (<div>
 
         <Navigation />
-        <header>Welcome user1234</header>
         <Headline{...headlines} />
         {/* {headlines.map((headline) => (
             <Headline

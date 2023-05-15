@@ -64,7 +64,6 @@ export const MoviePage = () => {
 
         return (
 
-
             <div class="text-center">
                 <p>Title: {headlines.title}</p>
                 <p>Year: {headlines.year}</p>
@@ -117,6 +116,8 @@ export const MoviePage = () => {
     if (error) {
         return <p>Something went wrong: {error.message}</p>;
     }
+    const ID = localStorage.getItem("imdbID")
+    // if (!ID) {
     return (
         <div>
             <Navigation />
@@ -142,6 +143,15 @@ export const MoviePage = () => {
         </div>
 
     )
+    // }
+    // else if (ID) {
+    //     setData(ID)
+    //     mapData()
+    //     localStorage.setItem(null, "imdbID");
+
+
+    // }
+
 }
 
 

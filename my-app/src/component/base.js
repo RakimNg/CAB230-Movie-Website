@@ -4,61 +4,129 @@ import { Homepage } from './homepage';
 import { MoviesLib } from './Movies';
 import { RouterProvider, createBrowserRouter, BrowserRouter, Routes, Router, Route, NavLink } from "react-router-dom";
 export function Navigation() {
-    return (
+    const timestamp = localStorage.getItem("timestamp")
+    const new_timestamp = Date.now()
+    if (new_timestamp - timestamp > 600000) {
+        console.log(`token expired, time stamp: ${timestamp}, new stamp: ${new_timestamp}`)
 
-        <div>
+
+        return (
+
+            <div>
 
 
 
 
-            <Nav
-            >
+                <Nav
+                >
 
-                <NavItem>
-                    <NavLink to="/" activeClassName="active-link">
+                    <NavItem>
+                        <NavLink to="/" activeClassName="active-link">
 
-                        |Home==|
-                    </NavLink>
-                </NavItem>
-                <NavItem>
+                            |Home==|
+                        </NavLink>
+                    </NavItem>
+                    <NavItem>
 
-                </NavItem>
+                    </NavItem>
 
-                <NavItem>
+                    <NavItem>
 
-                    <NavLink to="/movies" activeClassName="active-link">
-                        Search==|
-                    </NavLink>
+                        <NavLink to="/movies" activeClassName="active-link">
+                            Search==|
+                        </NavLink>
 
-                </NavItem>
-                <NavItem>
-                    <NavLink href="#">
-                        My Profile==|
-                    </NavLink>
-                </NavItem>
-                <NavItem>
-                    <NavLink to="/register" activeClassName="active-link">
-                        Register==|
-                    </NavLink>
-                </NavItem>
-                <NavItem>
-                    <NavLink to="/login" activeClassName="active-link">
-                        Log in===|
-                    </NavLink>
-                </NavItem>
-                <NavItem>
-                    <NavLink>
+                    </NavItem>
+                    <NavItem className="inactive-item">
+                        Search People==|
+                    </NavItem>
+                    <NavItem>
+                        <NavLink to="/register" activeClassName="active-link">
+                            Register==|
+                        </NavLink>
+                    </NavItem>
+                    <NavItem>
+                        <NavLink to="/login" activeClassName="active-link">
+                            Log in===|
+                        </NavLink>
+                    </NavItem>
+                    <NavItem className="inactive-item">
+                        {/* <NavLink> */}
                         Log Out===|
-                    </NavLink>
-                </NavItem>
+                        {/* </NavLink> */}
+                    </NavItem>
 
 
 
 
 
-            </Nav>
+                </Nav>
 
-        </div>
+            </div>
 
-    )
+        )
+    }
+    else {
+        console.log(`token valid, time stamp: ${timestamp}, new stamp: ${new_timestamp}`)
+        return (
+
+            <div>
+
+
+
+
+                <Nav
+                >
+
+
+                    <NavItem>
+                        <NavLink to="/" activeClassName="active-link">
+
+                            |Welcome Back! Home==|
+                        </NavLink>
+                    </NavItem>
+                    <NavItem>
+
+                    </NavItem>
+
+                    <NavItem>
+
+                        <NavLink to="/movies" activeClassName="active-link">
+                            Search==|
+                        </NavLink>
+
+                    </NavItem>
+                    <NavItem>
+                        <NavLink to="/" activeClassName="inactive-link">
+
+                            Search People==|
+                        </NavLink>
+                    </NavItem>
+                    <NavItem>
+                        <NavLink to="/register" activeClassName="active-link">
+                            Register==|
+                        </NavLink>
+                    </NavItem>
+                    <NavItem className="active-item">
+                        {/* <NavLink to="/login" activeClassName="inactive-link"> */}
+                        Log in===|
+                        {/* </NavLink> */}
+                    </NavItem>
+                    <NavItem>
+                        <NavLink>
+                            Log Out===|
+                        </NavLink>
+                    </NavItem>
+
+
+
+
+
+
+                </Nav>
+
+            </div>
+
+        )
+    }
 }
