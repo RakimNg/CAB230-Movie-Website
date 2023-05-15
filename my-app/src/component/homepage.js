@@ -2,74 +2,77 @@
 import React, { useEffect, useState } from 'react';
 import { Nav, NavItem, NavLink, Container, Row, Col, Card, CardGroup, CardBody, CardTitle, CardText, CardSubtitle, Button, CardImg, UncontrolledCarousel, Label, Input } from 'reactstrap';
 import { Navigation } from './base';
-export function Headline(props) {
-    const dataArray = props.data;
-    const MovieToday = [dataArray[0], dataArray[1], dataArray[2]]
-    const imgURL1 = "https://picsum.photos/id/217/200/200"
-    const imgURL2 = "https://picsum.photos/id/233/200/200"
-    const imgURL3 = "https://picsum.photos/id/231/200/200"
-    const imgArr = [imgURL1, imgURL2, imgURL3]
-    console.log(MovieToday)
-    return (
-        <div>
-
-            <Container>
-
-
-                <Row>
-                    <CardGroup>
-                        {MovieToday.map((props, index) => (
-                            <Col sm={3}>
-
-                                <Card>
-
-                                    <CardImg
-                                        alt="Card image cap"
-                                        src={imgArr[index]}
-                                        top
-                                        width="100%"
-                                    />
-
-
-
-                                    <CardBody>
-
-                                        <CardTitle tag="h5">
-                                            {props.title} - {props.year}
-                                        </CardTitle>
-                                        <CardSubtitle
-                                            className="mb-2 text-muted"
-                                            tag="h6"
-                                        >
-                                            <li>imdbRating: {props.imdbRating}</li>
-                                        </CardSubtitle>
-                                        <CardText>
-                                            <li>Classification: {props.classification}</li>
-                                        </CardText>
-
-                                        <Button>
-                                            View
-                                        </Button>
-
-                                    </CardBody>
-
-                                </Card>
-
-                            </Col>
-
-                        ))}
-                    </CardGroup>
-                </Row>
-            </Container>
-        </div>
-
-
-    )
-}
-export const useData = () => {
+export function Homepage() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [headlines, setHeadlines] = useState([]);
+    function Headline() {
+        const dataArray = headlines.data;
+        const MovieToday = [dataArray[0], dataArray[1], dataArray[2]]
+        const imgURL1 = "https://picsum.photos/id/217/200/200"
+        const imgURL2 = "https://picsum.photos/id/233/200/200"
+        const imgURL3 = "https://picsum.photos/id/231/200/200"
+        const imgArr = [imgURL1, imgURL2, imgURL3]
+        console.log(MovieToday)
+        return (
+            <div>
+
+                <Container>
+
+
+                    <Row>
+                        <CardGroup>
+                            {MovieToday.map((headlines, index) => (
+                                <Col sm={3}>
+
+                                    <Card>
+
+                                        <CardImg
+                                            alt="Card image cap"
+                                            src={imgArr[index]}
+                                            top
+                                            width="100%"
+                                        />
+
+
+
+                                        <CardBody>
+
+                                            <CardTitle tag="h5">
+                                                {headlines.title} - {headlines.year}
+                                            </CardTitle>
+                                            <CardSubtitle
+                                                className="mb-2 text-muted"
+                                                tag="h6"
+                                            >
+                                                <li>imdbRating: {headlines.imdbRating}</li>
+                                            </CardSubtitle>
+                                            <CardText>
+                                                <li>Classification: {headlines.classification}</li>
+                                            </CardText>
+
+                                            <Button>
+                                                View
+                                            </Button>
+
+                                        </CardBody>
+
+                                    </Card>
+
+                                </Col>
+
+                            ))}
+                        </CardGroup>
+                    </Row>
+                </Container>
+            </div>
+
+
+        )
+    }
+
+
+
 
 
     useEffect(() => {
@@ -90,15 +93,10 @@ export const useData = () => {
         getData();
     }, []);
 
-    return { loading, error, headlines };
-};
 
 
 
-export function Homepage() {
 
-
-    const { loading, error, headlines } = useData();
     if (loading) {
 
         return <p>loading...</p>;
@@ -111,7 +109,7 @@ export function Homepage() {
     return (<div>
 
         <Navigation />
-        <Headline{...headlines} />
+        <Headline />
         {/* {headlines.map((headline) => (
             <Headline
                 key={headline.imdbID}

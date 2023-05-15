@@ -117,3 +117,6 @@ not curly bracket
 also, try to use it in the only when you need to do the iteration mapping, do include other objs 
 that is not an array in the mapping seciton, they will be repetitive showed.
 ====================================================
+When you use localStorage.getItem("abc"), dont set it using useState, it will causes too many re-render errors
+=================================================
+Dont clear the data right after the mapping func is called as the mapping can be unsync.

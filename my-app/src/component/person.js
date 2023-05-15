@@ -1,14 +1,14 @@
 import { Navigation } from './base';
 import { Button } from 'reactstrap';
 import React, { useEffect, useState } from 'react';
-
+import { useNavigate } from 'react-router-dom';
 export const PersonPage = () => {
     const [records, setRecords] = useState([])
     const [data, setData] = useState([])
     const [headlines, setHeadlines] = useState([])
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState()
-
+    const navigate = useNavigate();
     const handleSubmit = (event) => {
         // setLoading(true)
         event.preventDefault();
@@ -25,6 +25,7 @@ export const PersonPage = () => {
     useEffect(() => {
         const fetchData = async () => {
             const token = localStorage.getItem("token")
+
             console.log(token)
             try {
                 const response = await fetch(`http://sefdb02.qut.edu.au:3000/people/${encodeURIComponent(data)}`, {
@@ -61,21 +62,25 @@ export const PersonPage = () => {
         return updated
     }
     const mapData = () => {
+
         const roles_arr = headlines?.roles
+
         // const characters_arr = headlines?.roles.characters
         if (!headlines || !roles_arr) return null;
 
         return (
             < div class="text-center">
+
                 <p>Name: {headlines.name}</p>
                 <p>Birth Year: {headlines.birthYear}</p>
 
                 {headlines.deathYear && <p>Death Year:{headlines.deathYear}</p>}
                 <p>Movies Performed:</p>
                 {roles_arr.map((role) => (
-                    <p>Movie Name: {role.movieName} MovieID: {role.movieID} Category: {role.category}  {role.characters && <p>{role.characters}</p>} imdbRating: {role.imdbRating}</p>
+                    <p>Movie Name: {role.movieName} MovieID: {role.movieID} Category: {role.category}  {role.characters && <p>Characters: {role.characters}</p>} imdbRating: {role.imdbRating}</p>
 
                 ))}
+
             </div>
         )
 
@@ -87,6 +92,7 @@ export const PersonPage = () => {
         return <p>Something went wrong: {error.message}</p>;
     }
     return (
+
         <div>
             <Navigation />
 

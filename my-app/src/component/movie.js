@@ -3,26 +3,11 @@ import { Navigation } from './base';
 import { Button } from 'reactstrap';
 import React, { useEffect, useState } from 'react';
 export const MoviePage = () => {
-    // const [records, setRecords] = useState([])
-    const [data, setData] = useState([])
     const [headlines, setHeadlines] = useState([])
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState()
     const ID = localStorage.getItem("imdbID")
-    // setData(ID)
-    // const handleInputChange = (event) => {
-    //     setRecords(event.target.value);
-    //     console.log(typeof event.target.value)
-    //     console.log(records)
-    // }
-    // const handleSubmit = (event) => {
-    //     // setLoading(true)
-    //     event.preventDefault();
-    //     setData(records)
-    //     // fetchData(data)
 
-
-    // }
     useEffect(
         () => {
             console.log("hello")
@@ -30,7 +15,6 @@ export const MoviePage = () => {
                 try {
                     const response = await fetch(`http://sefdb02.qut.edu.au:3000/movies/data/${encodeURIComponent(ID)}`)
                     const data1 = await response.json();
-                    // const country = await data1.country;
 
                     setHeadlines(data1)
 
@@ -109,9 +93,7 @@ export const MoviePage = () => {
 
 
     };
-    // fetchData();
 
-    // }, [data])
     if (loading) {
         return <p>loading...</p>;
     }
@@ -123,25 +105,11 @@ export const MoviePage = () => {
     return (
         <div>
             <Navigation />
-
-
-            {/* <div className='p-5 bg-light'>
-
-                    <form onSubmit={handleSubmit}>
-                        <div style={{ display: 'flex' }}>
-                            <input type="text" className='form-control' value={records} onChange={handleInputChange} placeholder='Search movie imdbID' />
-                            <button type="submit">Search</button>
-                        </div>
-                    </form> */}
-
             <div>
                 {mapData()}
-            </div>
-            {/* {} */}
-            {/* {headlines && <p>{headlines.title}</p> && <p>{headlines.year}</p> && <p>{headlines.country}</p> && mapPrincipals()} */}
 
+            </div>
         </div >
-        // </div> */}
 
     )
 

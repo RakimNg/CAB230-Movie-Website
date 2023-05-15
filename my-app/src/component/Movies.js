@@ -58,11 +58,10 @@ export function Headline(props) {
                     <td>{prop.imdbRating}</td>
                     <td>{prop.classification}</td>
                     <td>{prop.imdbID}</td>
-                    <Link to={`/movie/`}>
+                    <Link to={`/movie/${prop.imdbID}`}>
                         <td><Button color="primary" onClick={() => {
                             localStorage.setItem("imdbID", prop.imdbID);
-                            const ID = localStorage.getItem("imdbID")
-                            console.log(ID)
+
 
                         }}>
                             Details
@@ -91,35 +90,10 @@ export function Headline(props) {
     return (
         <div className='p-5 bg-light'>
             <div className='bg-white shadow border'>
-                <div style={{ display: 'flex' }}>
-                    <input type="text" className='form-control' onChange={Filter} placeholder='Search movie name or movie ID' />
-                    <Link to={`/movie/`}>
-                        <Button color="primary" onClick={() => {
+
+                <input type="text" className='form-control' onChange={Filter} placeholder='Search movie name or movie ID' />
 
 
-                        }
-
-
-
-
-                        }>
-                            Search with imdbID
-                        </Button>
-                    </Link>
-                    <Link to={`/person/`}>
-                        <Button color="danger" onClick={() => {
-
-
-                        }
-
-
-
-
-                        }>
-                            Search people
-                        </Button>
-                    </Link>
-                </div>
                 <table className='table'>
                     <thead>
                         <tr>

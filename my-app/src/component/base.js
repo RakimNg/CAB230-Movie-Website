@@ -97,7 +97,8 @@ export function Navigation() {
 
                     </NavItem>
                     <NavItem>
-                        <NavLink to="/" activeClassName="inactive-link">
+                        <NavLink to={`/person/`} activeClassName="active-link">
+
 
                             Search People==|
                         </NavLink>
