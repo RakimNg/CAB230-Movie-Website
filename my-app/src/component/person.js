@@ -64,11 +64,11 @@ export const PersonPage = () => {
     const mapData = () => {
 
         const roles_arr = headlines?.roles
-
         // const characters_arr = headlines?.roles.characters
         if (!headlines || !roles_arr) return null;
 
         return (
+
             < div class="text-center">
 
                 <p>Name: {headlines.name}</p>
@@ -76,11 +76,34 @@ export const PersonPage = () => {
 
                 {headlines.deathYear && <p>Death Year:{headlines.deathYear}</p>}
                 <p>Movies Performed:</p>
-                {roles_arr.map((role) => (
-                    <p>Movie Name: {role.movieName} MovieID: {role.movieID} Category: {role.category}  {role.characters && <p>Characters: {role.characters}</p>} imdbRating: {role.imdbRating}</p>
+                <table className='table'>
+                    <thead >
+                        <tr className='danger'>
 
-                ))}
+                            <th>Movie Name</th>
+                            <th>Movie ID</th>
+                            <th>Category</th>
+                            <th>Character</th>
+                            <th>IMDB Rating</th>
+                            {console.log(roles_arr)}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {roles_arr.map((role) => (
 
+                            <tr key={role.movieId} className='table-info'>
+                                <th> {role.movieName}</th>
+                                <th> {role.movieId}</th>
+                                <th>{role.category}</th>
+                                {role.characters && <th>{role.characters}</th>}
+                                <th> {role.imdbRating}</th>
+
+
+                            </tr>
+
+                        ))}
+                    </tbody>
+                </table>
             </div>
         )
 

@@ -4,18 +4,6 @@ import { Nav, NavItem, NavLink, Container, Row, Col, Card, CardGroup, CardBody, 
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Navigation } from './base';
 
-export function ResultPage() {
-    const location = useLocation();
-    const { data } = location.state;
-
-    return (
-        <div>
-            <h1>Result</h1>
-            <p>{JSON.stringify(data)}</p>
-        </div>
-    );
-}
-
 export function Headline(props) {
     const [records, setRecords] = useState([])
     const [error, setError] = useState(null);
@@ -57,8 +45,10 @@ export function Headline(props) {
                     <td>{prop.year}</td>
                     <td>{prop.imdbRating}</td>
                     <td>{prop.classification}</td>
-                    <td>{prop.imdbID}</td>
-                    <Link to={`/movie/${prop.imdbID}`}>
+                    <td><Link to={`/movie/${prop.imdbID}`} onClick={() => {
+                        localStorage.setItem("imdbID", prop.imdbID);
+                    }} >{prop.imdbID}</Link></td>
+                    {/* <Link to={`/movie/${prop.imdbID}`}>
                         <td><Button color="primary" onClick={() => {
                             localStorage.setItem("imdbID", prop.imdbID);
 
@@ -66,7 +56,7 @@ export function Headline(props) {
                         }}>
                             Details
                         </Button></td>
-                    </Link>
+                    </Link> */}
                     <td>
 
                     </td>
@@ -103,7 +93,6 @@ export function Headline(props) {
                             <th>imdbRating</th>
                             <th>Classification</th>
                             <th>imdbID</th>
-                            <th>Link</th>
                         </tr>
                     </thead>
                     <tbody>

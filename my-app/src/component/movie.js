@@ -69,13 +69,29 @@ export const MoviePage = () => {
                     </div>
                 ))}
                 <p>Characters:</p>
-                {principals_arr.map((principal) => (
-                    <div key={principal.id}>
-                        <p>ID: {principal.id} Category: {principal.category} Name: {principal.name} Character: {principal.character}</p>
+                <table className='table'>
+                    <thead >
+                        <tr className='danger'>
 
-                    </div>
-                ))}
+                            <th>ID</th>
+                            <th>Category</th>
+                            <th>Name</th>
+                            <th>Characters</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {principals_arr.map((principal) => (
 
+                            <tr key={principal.id} className='table-info'>
+                                <th>{principal.id} </th>
+                                <th>{principal.category}</th>
+                                <th>{principal.name} </th>
+                                <th>{principal.characters}</th>
+
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
 
             </div>
 
