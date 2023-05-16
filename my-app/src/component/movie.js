@@ -1,5 +1,5 @@
-import { MoviesLib } from './Movies';
-import { Navigation } from './base';
+import { MoviesLib } from './library';
+import { Navigation } from './nav';
 import { Button } from 'reactstrap';
 import React, { useEffect, useState } from 'react';
 export const MoviePage = () => {

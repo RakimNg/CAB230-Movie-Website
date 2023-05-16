@@ -7,7 +7,7 @@ import reportWebVitals from './reportWebVitals';
 import { Nav, NavItem, Container, Row, Col, Card, CardGroup, CardBody, CardTitle, CardText, CardSubtitle, Button, CardImg, UncontrolledCarousel, Label, Input } from 'reactstrap';
 import { useEffect, useState } from 'react';
 import { Homepage } from './component/homepage';
-import { MoviesLib } from './component/Movies';
+import { MoviesLib } from './component/library';
 import { RouterProvider, createBrowserRouter, BrowserRouter, Routes, Router, Route, NavLink } from "react-router-dom";
 import { Register } from './component/register';
 import { Login } from './component/login';

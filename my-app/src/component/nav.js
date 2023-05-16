@@ -1,7 +1,7 @@
 import { Nav, NavItem, Container, Row, Col, Card, CardGroup, CardBody, CardTitle, CardText, CardSubtitle, Button, CardImg, UncontrolledCarousel, Label, Input } from 'reactstrap';
 import React, { useEffect, useState } from 'react';
 import { Homepage } from './homepage';
-import { MoviesLib } from './Movies';
+import { MoviesLib } from './library';
 import { RouterProvider, createBrowserRouter, BrowserRouter, Routes, Router, Route, NavLink, Link } from "react-router-dom";
 import '../CSS/nav.css';
 export function Navigation() {

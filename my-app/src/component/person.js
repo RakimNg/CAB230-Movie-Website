@@ -1,4 +1,4 @@
-import { Navigation } from './base';
+import { Navigation } from './nav';
 import { Button } from 'reactstrap';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -10,10 +10,8 @@ export const PersonPage = () => {
     const [error, setError] = useState()
     const navigate = useNavigate();
     const handleSubmit = (event) => {
-        // setLoading(true)
         event.preventDefault();
         setData(records)
-        // fetchData(data)
 
 
     }
@@ -62,7 +60,6 @@ export const PersonPage = () => {
     const mapData = () => {
 
         const roles_arr = headlines?.roles
-        // const characters_arr = headlines?.roles.characters
         if (!headlines || !roles_arr) return null;
 
         return (
@@ -132,9 +129,6 @@ export const PersonPage = () => {
                     {mapData()}
 
                 </div>
-                {/* {} */}
-                {/* {headlines && <p>{headlines.title}</p> && <p>{headlines.year}</p> && <p>{headlines.country}</p> && mapPrincipals()} */}
-
             </div >
         </div>
 

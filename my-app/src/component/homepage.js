@@ -1,21 +1,24 @@
 import '../CSS/hero.css'
+import '../CSS/card.css'
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { Nav, NavItem, NavLink, Container, Row, Col, Card, CardGroup, CardBody, CardTitle, CardText, CardSubtitle, Button, CardImg, UncontrolledCarousel, Label, Input } from 'reactstrap';
-import { Navigation } from './base';
+import { Navigation } from './nav';
 export function Homepage() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [headlines, setHeadlines] = useState([]);
+    const navigate = useNavigate()
     function Headline() {
         const dataArray = headlines.data;
         const MovieToday = [dataArray[0], dataArray[1], dataArray[2]]
-        const imgURL1 = "https://picsum.photos/id/217/200/200"
-        const imgURL2 = "https://picsum.photos/id/233/200/200"
-        const imgURL3 = "https://picsum.photos/id/231/200/200"
+        const imgURL1 = "https://picfiles.alphacoders.com/348/348156.jpg"
+        const imgURL2 = "https://i.pinimg.com/originals/d3/e3/1e/d3e31e5775d1aed0820b555da52d0677.jpg"
+        const imgURL3 = "https://th.bing.com/th/id/R.18d1c08202b0b5812d7902cebc3d6c28?rik=3CrG5TQJ9BegnA&riu=http%3a%2f%2fimage.tmdb.org%2ft%2fp%2foriginal%2f5iZ0wT8MvnKoUd85guu00pszqMC.jpg&ehk=f9MXNlG74Bwkqrbfk%2bDZQfdpKXlckEw9bU%2bGVYN3I8A%3d&risl=&pid=ImgRaw&r=0"
         const imgArr = [imgURL1, imgURL2, imgURL3]
         console.log(MovieToday)
         return (
-            <div>
+            <div className='card-group'>
 
                 <Container>
 
@@ -51,9 +54,10 @@ export function Homepage() {
                                                 <li>Classification: {headlines.classification}</li>
                                             </CardText>
 
-                                            <Button>
-                                                View
-                                            </Button>
+                                            <Button color="danger" onClick={() => {
+                                                localStorage.setItem("imdbID", headlines.imdbID);
+                                                navigate(`movie/${headlines.imdbID}`)
+                                            }}>View</Button>
 
                                         </CardBody>
 
@@ -78,7 +82,7 @@ export function Homepage() {
     useEffect(() => {
         const getData = async () => {
             try {
-                const res = await fetch('http://sefdb02.qut.edu.au:3000/movies/search?title=Avengers');
+                const res = await fetch('http://sefdb02.qut.edu.au:3000/movies/search?title=star%20war');
                 const data = await res.json();
                 // const dataArray = data.data;
                 // const MovieToday = [dataArray[0], dataArray[1], dataArray[2]]
@@ -112,21 +116,11 @@ export function Homepage() {
         <div class="hero">
             <div class="hero-content">
                 <h1 class="hero-title">Welcome to Our Website</h1>
-                <p class="hero-subtitle">Explore the world of amazing products and services.</p>
+                <p class="hero-subtitle">Explore the fantastic movie world!</p>
                 <a href="#" class="hero-button">Get Started</a>
             </div>
         </div>
         <Headline />
-        {/* {headlines.map((headline) => (
-            <Headline
-                key={headline.imdbID}
-                title={headline.title}
-                year={headline.year}
-                imdbRating={headline.imdbRating}
-                classification={headline.classification}
-            />
-        ))} */}
-        {/* <p>{title}</p> */}
 
     </div>)
 
