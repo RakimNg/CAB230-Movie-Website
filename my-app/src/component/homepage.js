@@ -1,4 +1,4 @@
-
+import '../CSS/hero.css'
 import React, { useEffect, useState } from 'react';
 import { Nav, NavItem, NavLink, Container, Row, Col, Card, CardGroup, CardBody, CardTitle, CardText, CardSubtitle, Button, CardImg, UncontrolledCarousel, Label, Input } from 'reactstrap';
 import { Navigation } from './base';
@@ -109,6 +109,13 @@ export function Homepage() {
     return (<div>
 
         <Navigation />
+        <div class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">Welcome to Our Website</h1>
+                <p class="hero-subtitle">Explore the world of amazing products and services.</p>
+                <a href="#" class="hero-button">Get Started</a>
+            </div>
+        </div>
         <Headline />
         {/* {headlines.map((headline) => (
             <Headline
