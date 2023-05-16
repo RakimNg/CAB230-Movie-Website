@@ -8,7 +8,9 @@ export function Navigation() {
     const timestamp = localStorage.getItem("timestamp")
     const new_timestamp = Date.now()
     const token = localStorage.getItem("token")
-    if (!token) {
+    if (!token || new_timestamp - timestamp > 600000) {
+        localStorage.removeItem("refreshToken")
+        localStorage.removeItem("token")
         console.log(`token expired, time stamp: ${timestamp}, new stamp: ${new_timestamp}`)
 
 
@@ -37,9 +39,7 @@ export function Navigation() {
                                 <a>Search Movie</a>
                             </li>
                         </Link>
-                        <li>
-                            <a>Search People</a>
-                        </li>
+                        <p>Search People</p>
                         <Link to="/register">
                             <li>
                                 <a>Register</a>
@@ -50,9 +50,7 @@ export function Navigation() {
                                 <a>Login</a>
                             </li>
                         </Link>
-                        <li>
-                            <a>Log Out</a>
-                        </li>
+                        <p>Log Out</p>
                     </ul>
 
 
@@ -77,7 +75,8 @@ export function Navigation() {
                 >
                     <Link to="/">
                         <a>
-                            <img src='https://i.pinimg.com/564x/57/2a/4e/572a4e04db252bb959cdfd85342a1cd9.jpg' width={120} height={80} alt='logo' class="transparent-background" />
+
+                            <img src='https://i.pinimg.com/564x/57/2a/4e/572a4e04db252bb959cdfd85342a1cd9.jpg' width={120} height={80} alt='logo' />
                         </a>
                         <a className='site-title'>
                             Movie Lib
@@ -92,7 +91,7 @@ export function Navigation() {
                                 <a>Search Movie</a>
                             </li>
                         </Link>
-                        <Link to="/search">
+                        <Link to="/person">
                             <li>
                                 <a>Search People</a>
                             </li>
@@ -103,14 +102,14 @@ export function Navigation() {
                             </li>
                         </Link>
 
-                        <li>
-                            <a>Login</a>
-                        </li>
+                        <p>Login</p>
                         <Link to="/logout">
                             <li>
                                 <a>Log Out</a>
                             </li>
+
                         </Link>
+
                     </ul>
 
 

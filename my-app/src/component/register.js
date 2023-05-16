@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { Link, useNavigate } from 'react-router-dom';
-import './RegisterAndLogin.css'; // import CSS file for styling
+import '../CSS/RegisterAndLogin.css';// import CSS file for styling
 
 export function Register() {
 

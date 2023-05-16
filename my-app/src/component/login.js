@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import './RegisterAndLogin.css'; // import CSS file for styling
+import '../CSS/RegisterAndLogin.css'; // import CSS file for styling
 import { Register } from './register';
 
 export function Login() {
@@ -24,6 +24,7 @@ export function Login() {
                 password: password
             })
         })
+
             .then(response => response.json())
             .then(data => {
                 console.log(data);
