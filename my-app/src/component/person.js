@@ -1,7 +1,7 @@
 import { Navigation } from './nav';
 import { Button } from 'reactstrap';
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 export const PersonPage = () => {
     const [records, setRecords] = useState([])
     const [data, setData] = useState([])
@@ -88,7 +88,9 @@ export const PersonPage = () => {
 
                             <tr key={role.movieId} className='table-info'>
                                 <th> {role.movieName}</th>
-                                <th> {role.movieId}</th>
+                                <th><Link to={`/movie/${role.movieID}`} onClick={() => {
+                                    localStorage.setItem("imdbID", role.movieId);
+                                }} >{role.movieId}</Link></th>
                                 <th>{role.category}</th>
                                 {role.characters && <th>{role.characters}</th>}
                                 <th> {role.imdbRating}</th>

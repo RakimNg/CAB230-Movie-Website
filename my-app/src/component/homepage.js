@@ -120,6 +120,12 @@ export function Homepage() {
                 <a href="#" class="hero-button">Get Started</a>
             </div>
         </div>
+        <div class="h3">
+            <h5>
+                Recommended Movies
+            </h5>
+        </div>
+
         <Headline />
 
     </div>)

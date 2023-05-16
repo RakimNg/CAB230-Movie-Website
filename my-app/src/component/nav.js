@@ -1,4 +1,4 @@
-import { Nav, NavItem, Container, Row, Col, Card, CardGroup, CardBody, CardTitle, CardText, CardSubtitle, Button, CardImg, UncontrolledCarousel, Label, Input } from 'reactstrap';
+import { Alert, Nav, NavItem, Container, Row, Col, Card, CardGroup, CardBody, CardTitle, CardText, CardSubtitle, Button, CardImg, UncontrolledCarousel, Label, Input } from 'reactstrap';
 import React, { useEffect, useState } from 'react';
 import { Homepage } from './homepage';
 import { MoviesLib } from './library';
@@ -8,6 +8,8 @@ export function Navigation() {
     const timestamp = localStorage.getItem("timestamp")
     const new_timestamp = Date.now()
     const token = localStorage.getItem("token")
+    const [visible, setVisible] = useState(true);
+    const onDismiss = () => setVisible(false);
     if (!token || new_timestamp - timestamp > 600000) {
         localStorage.removeItem("refreshToken")
         localStorage.removeItem("token")
@@ -57,7 +59,6 @@ export function Navigation() {
 
 
                 </nav>
-
             </div>
 
         )

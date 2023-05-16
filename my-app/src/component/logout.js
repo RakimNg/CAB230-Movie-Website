@@ -45,14 +45,16 @@ export const LogOutPage = () => {
     }
     return (
         <div>
-            <p>
-                You have already log out!
-            </p>
+            <h5>
+                You have log out!
+            </h5>
+
             <Link to="/">
-                <p>Back to Homepage</p>
+                Back to Homepage
             </Link>
+            &nbsp;&nbsp;&nbsp;&nbsp;
             <Link to="/login">
-                <p>Login Again</p>
+                Login
             </Link>
 
         </div>
