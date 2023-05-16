@@ -13,6 +13,7 @@ import { Register } from './component/register';
 import { Login } from './component/login';
 import { MoviePage } from './component/movie';
 import { PersonPage } from './component/person';
+import { LogOutPage } from './component/logout';
 const router = createBrowserRouter([{
   path: "/",
   element: (<Homepage />),
@@ -36,8 +37,12 @@ const router = createBrowserRouter([{
   element: (<Login />)
 },
 {
-  path: "person/",
+  path: "person",
   element: (<PersonPage />)
+},
+{
+  path: "logout",
+  element: (<LogOutPage />)
 }
 ])
 

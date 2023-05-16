@@ -29,6 +29,9 @@ export function Login() {
                 console.log(data);
                 // console.log(res)
                 localStorage.setItem("token", data.bearerToken.token);
+
+                localStorage.setItem("refreshToken", data.refreshToken.token)
+                console.log(data.refreshToken.token)
                 localStorage.setItem("timestamp", Date.now());
                 setLogin('true')
                 console.log(login)
@@ -41,6 +44,9 @@ export function Login() {
                 console.error('Error logging in:', error);
                 setError('An unexpected error occurred. Please try again later.');
             })
+        if (!error) {
+            navigate('/')
+        }
 
 
     };

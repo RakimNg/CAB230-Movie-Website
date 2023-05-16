@@ -6,7 +6,8 @@ import { RouterProvider, createBrowserRouter, BrowserRouter, Routes, Router, Rou
 export function Navigation() {
     const timestamp = localStorage.getItem("timestamp")
     const new_timestamp = Date.now()
-    if (new_timestamp - timestamp > 600000) {
+    const token = localStorage.getItem("token")
+    if (!token) {
         console.log(`token expired, time stamp: ${timestamp}, new stamp: ${new_timestamp}`)
 
 
@@ -114,7 +115,7 @@ export function Navigation() {
                         {/* </NavLink> */}
                     </NavItem>
                     <NavItem>
-                        <NavLink>
+                        <NavLink to="/logout" activeClassName="active-link">
                             Log Out===|
                         </NavLink>
                     </NavItem>
