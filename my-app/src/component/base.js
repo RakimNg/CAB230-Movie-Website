@@ -2,7 +2,8 @@ import { Nav, NavItem, Container, Row, Col, Card, CardGroup, CardBody, CardTitle
 import React, { useEffect, useState } from 'react';
 import { Homepage } from './homepage';
 import { MoviesLib } from './Movies';
-import { RouterProvider, createBrowserRouter, BrowserRouter, Routes, Router, Route, NavLink } from "react-router-dom";
+import { RouterProvider, createBrowserRouter, BrowserRouter, Routes, Router, Route, NavLink, Link } from "react-router-dom";
+import '../CSS/nav.css';
 export function Navigation() {
     const timestamp = localStorage.getItem("timestamp")
     const new_timestamp = Date.now()
@@ -18,50 +19,46 @@ export function Navigation() {
 
 
 
-                <Nav
+                <nav className='nav'
                 >
+                    <Link to="/">
+                        <a>
+                            <img src='https://i.pinimg.com/564x/57/2a/4e/572a4e04db252bb959cdfd85342a1cd9.jpg' width={120} height={80} alt='logo' class="transparent-background" />
+                        </a>
+                        <a className='site-title'>
+                            Movie Lib
+                        </a>
+                    </Link>
 
-                    <NavItem>
-                        <NavLink to="/" activeClassName="active-link">
 
-                            |Home==|
-                        </NavLink>
-                    </NavItem>
-                    <NavItem>
-
-                    </NavItem>
-
-                    <NavItem>
-
-                        <NavLink to="/movies" activeClassName="active-link">
-                            Search==|
-                        </NavLink>
-
-                    </NavItem>
-                    <NavItem className="inactive-item">
-                        Search People==|
-                    </NavItem>
-                    <NavItem>
-                        <NavLink to="/register" activeClassName="active-link">
-                            Register==|
-                        </NavLink>
-                    </NavItem>
-                    <NavItem>
-                        <NavLink to="/login" activeClassName="active-link">
-                            Log in===|
-                        </NavLink>
-                    </NavItem>
-                    <NavItem className="inactive-item">
-                        {/* <NavLink> */}
-                        Log Out===|
-                        {/* </NavLink> */}
-                    </NavItem>
+                    <ul>
+                        <Link to="/movies">
+                            <li>
+                                <a>Search Movie</a>
+                            </li>
+                        </Link>
+                        <li>
+                            <a>Search People</a>
+                        </li>
+                        <Link to="/register">
+                            <li>
+                                <a>Register</a>
+                            </li>
+                        </Link>
+                        <Link to="/login">
+                            <li>
+                                <a>Login</a>
+                            </li>
+                        </Link>
+                        <li>
+                            <a>Log Out</a>
+                        </li>
+                    </ul>
 
 
 
 
-
-                </Nav>
+                </nav>
 
             </div>
 
@@ -76,56 +73,50 @@ export function Navigation() {
 
 
 
-                <Nav
+                <nav className='nav'
                 >
+                    <Link to="/">
+                        <a>
+                            <img src='https://i.pinimg.com/564x/57/2a/4e/572a4e04db252bb959cdfd85342a1cd9.jpg' width={120} height={80} alt='logo' class="transparent-background" />
+                        </a>
+                        <a className='site-title'>
+                            Movie Lib
+                        </a>
+
+                    </Link>
 
 
-                    <NavItem>
-                        <NavLink to="/" activeClassName="active-link">
+                    <ul>
+                        <Link to="/movies">
+                            <li>
+                                <a>Search Movie</a>
+                            </li>
+                        </Link>
+                        <Link to="/search">
+                            <li>
+                                <a>Search People</a>
+                            </li>
+                        </Link>
+                        <Link to="/register">
+                            <li>
+                                <a>Register</a>
+                            </li>
+                        </Link>
 
-                            |Welcome Back! Home==|
-                        </NavLink>
-                    </NavItem>
-                    <NavItem>
-
-                    </NavItem>
-
-                    <NavItem>
-
-                        <NavLink to="/movies" activeClassName="active-link">
-                            Search==|
-                        </NavLink>
-
-                    </NavItem>
-                    <NavItem>
-                        <NavLink to={`/person/`} activeClassName="active-link">
-
-
-                            Search People==|
-                        </NavLink>
-                    </NavItem>
-                    <NavItem>
-                        <NavLink to="/register" activeClassName="active-link">
-                            Register==|
-                        </NavLink>
-                    </NavItem>
-                    <NavItem className="active-item">
-                        {/* <NavLink to="/login" activeClassName="inactive-link"> */}
-                        Log in===|
-                        {/* </NavLink> */}
-                    </NavItem>
-                    <NavItem>
-                        <NavLink to="/logout" activeClassName="active-link">
-                            Log Out===|
-                        </NavLink>
-                    </NavItem>
+                        <li>
+                            <a>Login</a>
+                        </li>
+                        <Link to="/logout">
+                            <li>
+                                <a>Log Out</a>
+                            </li>
+                        </Link>
+                    </ul>
 
 
 
 
-
-
-                </Nav>
+                </nav>
 
             </div>
 
