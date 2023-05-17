@@ -7,12 +7,13 @@ import reportWebVitals from './reportWebVitals';
 import { Nav, NavItem, Container, Row, Col, Card, CardGroup, CardBody, CardTitle, CardText, CardSubtitle, Button, CardImg, UncontrolledCarousel, Label, Input } from 'reactstrap';
 import { useEffect, useState } from 'react';
 import { Homepage } from './component/homepage';
+import { PersonPage } from './component/person';
 import { MoviesLib } from './component/library';
 import { RouterProvider, createBrowserRouter, BrowserRouter, Routes, Router, Route, NavLink } from "react-router-dom";
 import { Register } from './component/register';
 import { Login } from './component/login';
 import { MoviePage } from './component/movie';
-import { PersonPage } from './component/person';
+import { SearchPerson } from './component/searchPerson';
 import { LogOutPage } from './component/logout';
 const router = createBrowserRouter([{
   path: "/",
@@ -38,6 +39,10 @@ const router = createBrowserRouter([{
 },
 {
   path: "person",
+  element: (<SearchPerson />)
+},
+{
+  path: "person/:imdbID",
   element: (<PersonPage />)
 },
 {

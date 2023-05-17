@@ -1,30 +1,18 @@
-import { Navigation } from './nav';
-import { Button } from 'reactstrap';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { Navigation } from './nav'
 export const PersonPage = () => {
-    const [records, setRecords] = useState([])
-    const [data, setData] = useState([])
+    // const [data, setData] = useState([])
+
     const [headlines, setHeadlines] = useState([])
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState()
-    const navigate = useNavigate();
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        setData(records)
-
-
-    }
-    const handleInputChange = (event) => {
-        setRecords(event.target.value);
-        console.log(typeof event.target.value)
-        console.log(records)
-    }
     useEffect(() => {
         const fetchData = async () => {
             const token = localStorage.getItem("token")
+            const ID = localStorage.getItem("personID")
             try {
-                const response = await fetch(`http://sefdb02.qut.edu.au:3000/people/${encodeURIComponent(data)}`, {
+                const response = await fetch(`http://sefdb02.qut.edu.au:3000/people/${encodeURIComponent(ID)}`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
@@ -48,22 +36,11 @@ export const PersonPage = () => {
 
         }
         fetchData()
-    }, [data])
-    const join = (array) => {
-        if (!array) {
-            return null
-        }
-        const updated = array.join(" , ")
-        console.log(updated)
-        return updated
-    }
+    }, [])
     const mapData = () => {
-
         const roles_arr = headlines?.roles
         if (!headlines || !roles_arr) return null;
-
         return (
-
             < div class="text-center">
 
                 <p>Name: {headlines.name}</p>
@@ -103,7 +80,6 @@ export const PersonPage = () => {
                 </table>
             </div>
         )
-
     }
     if (loading) {
         return <p>loading...</p>;
@@ -115,24 +91,11 @@ export const PersonPage = () => {
 
         <div>
             <Navigation />
+            <div>
+                {mapData()}
 
-
-            <div className='p-5 bg-light'>
-
-                <form onSubmit={handleSubmit}>
-                    <div style={{ display: 'flex' }}>
-                        <input type="text" className='form-control' value={records} onChange={handleInputChange} placeholder='Search people imdbID' />
-                        <button type="submit">Search</button>
-
-                    </div>
-                </form>
-
-                <div>
-                    {mapData()}
-
-                </div>
-            </div >
-        </div>
+            </div>
+        </div >
 
     )
 }

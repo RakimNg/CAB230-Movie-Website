@@ -55,8 +55,10 @@ export function Homepage() {
                                             </CardText>
 
                                             <Button color="danger" onClick={() => {
+                                                console.log("hello there")
                                                 localStorage.setItem("imdbID", headlines.imdbID);
                                                 navigate(`movie/${headlines.imdbID}`)
+
                                             }}>View</Button>
 
                                         </CardBody>
