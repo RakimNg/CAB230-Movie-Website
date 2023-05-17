@@ -16,7 +16,6 @@ export function Homepage() {
         const imgURL2 = "https://i.pinimg.com/originals/d3/e3/1e/d3e31e5775d1aed0820b555da52d0677.jpg"
         const imgURL3 = "https://th.bing.com/th/id/R.18d1c08202b0b5812d7902cebc3d6c28?rik=3CrG5TQJ9BegnA&riu=http%3a%2f%2fimage.tmdb.org%2ft%2fp%2foriginal%2f5iZ0wT8MvnKoUd85guu00pszqMC.jpg&ehk=f9MXNlG74Bwkqrbfk%2bDZQfdpKXlckEw9bU%2bGVYN3I8A%3d&risl=&pid=ImgRaw&r=0"
         const imgArr = [imgURL1, imgURL2, imgURL3]
-        console.log(MovieToday)
         return (
             <div className='card-group'>
 

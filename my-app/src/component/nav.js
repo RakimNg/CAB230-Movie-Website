@@ -8,9 +8,69 @@ export function Navigation() {
     const timestamp = localStorage.getItem("timestamp")
     const new_timestamp = Date.now()
     const token = localStorage.getItem("token")
-    const [visible, setVisible] = useState(true);
-    const onDismiss = () => setVisible(false);
-    if (!token || new_timestamp - timestamp > 600000) {
+    if (new_timestamp - timestamp > 600000) {
+        localStorage.removeItem("refreshToken")
+        localStorage.removeItem("token")
+        console.log(`token expired, time stamp: ${timestamp}, new stamp: ${new_timestamp}`)
+        return (
+            <div>
+                <nav className='nav'
+                >
+                    <Link to="/">
+                        <a>
+                            <img src='https://i.pinimg.com/564x/57/2a/4e/572a4e04db252bb959cdfd85342a1cd9.jpg' width={120} height={80} alt='logo' class="transparent-background" />
+                        </a>
+                        <a className='site-title'>
+                            Movie Lib
+                        </a>
+                    </Link>
+
+
+                    <ul>
+                        <Link to="/movies">
+                            <li>
+                                <a>Search Movie</a>
+                            </li>
+                        </Link>
+                        <p>Search People</p>
+                        <Link to="/register">
+                            <li>
+                                <a>Register</a>
+                            </li>
+                        </Link>
+                        <Link to="/login">
+                            <li>
+                                <a>Login</a>
+                            </li>
+                        </Link>
+                        <p>Log Out</p>
+                    </ul>
+
+
+
+
+                </nav>
+                <div class="alert-container">
+                    <Alert color="primary">
+                        You login session has expired.&nbsp;
+                        <Link
+                            className="alert-link"
+                            to="/login"
+                            target="_blank"
+                        >
+
+                            Log in here
+                        </Link>
+                        &nbsp;
+                        if you like.
+                    </Alert>
+                </div>
+            </div>
+
+        )
+    }
+    if (!token) {
+        localStorage.removeItem("timestamp")
         localStorage.removeItem("refreshToken")
         localStorage.removeItem("token")
         console.log(`token expired, time stamp: ${timestamp}, new stamp: ${new_timestamp}`)
@@ -68,15 +128,10 @@ export function Navigation() {
         return (
 
             <div>
-
-
-
-
                 <nav className='nav'
                 >
                     <Link to="/">
                         <a>
-
                             <img src='https://i.pinimg.com/564x/57/2a/4e/572a4e04db252bb959cdfd85342a1cd9.jpg' width={120} height={80} alt='logo' />
                         </a>
                         <a className='site-title'>
@@ -84,8 +139,6 @@ export function Navigation() {
                         </a>
 
                     </Link>
-
-
                     <ul>
                         <Link to="/movies">
                             <li>
@@ -102,20 +155,13 @@ export function Navigation() {
                                 <a>Register</a>
                             </li>
                         </Link>
-
                         <p>Login</p>
                         <Link to="/logout">
                             <li>
                                 <a>Log Out</a>
                             </li>
-
                         </Link>
-
                     </ul>
-
-
-
-
                 </nav>
 
             </div>

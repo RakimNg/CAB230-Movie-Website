@@ -13,7 +13,7 @@ export const MoviePage = () => {
     const onDismiss = () => setVisible(false);
     useEffect(
         () => {
-            console.log("hello")
+            // console.log("hello")
             const fetchData = async () => {
                 try {
                     const response = await fetch(`http://sefdb02.qut.edu.au:3000/movies/data/${encodeURIComponent(ID)}`)
