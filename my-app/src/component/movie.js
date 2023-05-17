@@ -1,6 +1,6 @@
 import { MoviesLib } from './library';
 import { Navigation } from './nav';
-import { Button } from 'reactstrap';
+import { Button, Alert } from 'reactstrap';
 import { useNavigate, Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 export const MoviePage = () => {
@@ -8,7 +8,9 @@ export const MoviePage = () => {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState()
     const ID = localStorage.getItem("imdbID")
+    const [visible, setVisible] = useState(true);
 
+    const onDismiss = () => setVisible(false);
     useEffect(
         () => {
             console.log("hello")
@@ -147,7 +149,11 @@ export const MoviePage = () => {
                             <tr key={principal.id} className='table-info'>
 
                                 <th><Link to={`/person/${principal.id}`} onClick={() => {
+
+
                                     localStorage.setItem("personID", principal.id);
+
+
                                 }} >{principal.id}</Link></th>
                                 <th>{principal.category}</th>
                                 <th>{principal.name} </th>

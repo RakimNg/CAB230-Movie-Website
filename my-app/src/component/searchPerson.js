@@ -57,18 +57,41 @@ export const SearchPerson = () => {
         // console.log(updated)
         return updated
     }
+    const getRole = (roles_arr) => {
+        let roles = []
+        for (let i = 0; i < roles_arr.length; i++) {
+            roles.push(roles_arr[i].category)
+
+        }
+        let uniqueRoles = Array.from(new Set(roles));
+        const newRoles = join(uniqueRoles)
+        return newRoles
+    }
     const getName = (roles_arr) => {
-        const desiredLength = 5
+        // const desiredLength = 5
         let nameArr = []
         for (let i = 0; i < roles_arr.length; i++) {
+            if (i >= 5) {
+                if (roles_arr.length > 6) {
+                    nameArr.push(roles_arr[i].movieName + "...")
+                    break
+                }
+                nameArr.push(roles_arr[i].movieName)
+                break
+
+            }
             nameArr.push(roles_arr[i].movieName)
+            console.log(nameArr)
 
         }
-        if (roles_arr.length > 5) {
-            nameArr = nameArr.slice(0, desiredLength)
-        }
+
+        // }
+        // if (roles_arr.length > 5) {
+        //     nameArr = nameArr.slice(0, desiredLength)
+        // }
 
         const newNameArr = join(nameArr)
+        console.log(newNameArr)
         return newNameArr
     }
 
@@ -86,12 +109,12 @@ export const SearchPerson = () => {
                         {headlines.name}
                     </CardTitle>
                     <CardText>
-                        Movies participated: {getName(roles_arr)}...
+                        Movies participated: {getName(roles_arr)}
                     </CardText>
 
                     <CardText style={{ display: "flex", justifyContent: "space-between" }}>
                         <small className="text-muted">
-                            roles: ...
+                            Roles: {getRole(roles_arr)}
                         </small>
                         <Link to={`/person/${data}`} onClick={() => {
                             localStorage.setItem("personID", data);

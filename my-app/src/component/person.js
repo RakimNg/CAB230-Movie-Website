@@ -57,15 +57,14 @@ export const PersonPage = () => {
                             <th>Category</th>
                             <th>Character</th>
                             <th>IMDB Rating</th>
-                            {console.log(roles_arr)}
                         </tr>
                     </thead>
                     <tbody>
                         {roles_arr.map((role) => (
-
                             <tr key={role.movieId} className='table-info'>
                                 <th> {role.movieName}</th>
-                                <th><Link to={`/movie/${role.movieID}`} onClick={() => {
+                                <th><Link to={`/movie/${role.movieId}`} onClick={() => {
+                                    console.log(role.movieId);
                                     localStorage.setItem("imdbID", role.movieId);
                                 }} >{role.movieId}</Link></th>
                                 <th>{role.category}</th>
