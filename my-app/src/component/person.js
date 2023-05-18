@@ -92,7 +92,7 @@ export const PersonPage = () => {
             // console.log(id);
             // console.log("hello");
             try {
-                await delay(100);
+                await delay(50);
                 const res = await fetch(`http://sefdb02.qut.edu.au:3000/movies/data/${id}`);
                 const data = await res.json();
                 tempArray.push(data); // Add fetched data to temporary array
@@ -238,11 +238,10 @@ export const PersonPage = () => {
 
                         <Line type="monotone" dataKey="boxoffice" stroke="#82ca9d" />
                     </LineChart>
-                    <LineChart
-                        width={600} // Increase the width
-                        height={500} // Increase the height
+                    <BarChart
+                        width={650}
+                        height={500}
                         data={data1}
-                        // data={data.sort((a, b) => a.year - b.year)}
                         margin={{
                             top: 5,
                             right: 30,
@@ -252,12 +251,12 @@ export const PersonPage = () => {
                     >
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="genre" angle={-45} />
-                        <YAxis angle={-75} />
+                        <YAxis />
                         <Tooltip />
                         <Legend />
-
-                        <Line type="monotone" dataKey="times" stroke="#87CEFA" />
-                    </LineChart>
+                        <Bar dataKey="times" fill="#8884d8" />
+                        {/* <Bar dataKey="uv" fill="#82ca9d" /> */}
+                    </BarChart>
 
 
 
