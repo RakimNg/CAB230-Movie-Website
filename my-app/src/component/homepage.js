@@ -2,7 +2,7 @@ import '../CSS/hero.css'
 import '../CSS/card.css'
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
-import { Nav, NavItem, NavLink, Container, Row, Col, Card, CardGroup, CardBody, CardTitle, CardText, CardSubtitle, Button, CardImg, UncontrolledCarousel, Label, Input } from 'reactstrap';
+import { Spinner, Nav, NavItem, NavLink, Container, Row, Col, Card, CardGroup, CardBody, CardTitle, CardText, CardSubtitle, Button, CardImg, UncontrolledCarousel, Label, Input } from 'reactstrap';
 import { Navigation } from './nav';
 export function Homepage() {
     const [loading, setLoading] = useState(true);
@@ -98,11 +98,45 @@ export function Homepage() {
 
     if (loading) {
 
-        return <p>loading...</p>;
+        return (<div>
+            <Navigation />
+            <p style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Loading the data, please wait...</p>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+
+                <Spinner
+                    color="primary"
+                    type="grow"
+                >
+                    Loading...
+                </Spinner>
+                &nbsp;&nbsp;
+                <Spinner
+                    color="primary"
+                    type="grow"
+                >
+                    Loading...
+                </Spinner>
+                &nbsp;&nbsp;
+                <Spinner
+                    color="primary"
+                    type="grow"
+                >
+                    Loading...
+                </Spinner>
+            </div>
+        </div>
+        )
     }
 
     if (error) {
-        return <p>Something went wrong: {error}</p>;
+        return (
+            <div>
+                <Navigation />
+                <p style={{ display: 'flex', justifyContent: 'center' }}>Something went wrong: {error}. Please check your network connection</p>;
+
+            </div>
+
+        )
     }
 
     return (<div>
@@ -112,13 +146,7 @@ export function Homepage() {
             <div class="hero-content">
                 <h1 class="hero-title">Welcome to Our Website</h1>
                 <p class="hero-subtitle">Explore the fantastic movie world!</p>
-                <a href="#" class="hero-button">Get Started</a>
             </div>
-        </div>
-        <div class="h3">
-            <h5>
-                Recommended Movies
-            </h5>
         </div>
 
         <Headline />

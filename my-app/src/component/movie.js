@@ -1,6 +1,6 @@
 import { MoviesLib } from './library';
 import { Navigation } from './nav';
-import { Button, Alert } from 'reactstrap';
+import { Button, Alert, Spinner } from 'reactstrap';
 import { useNavigate, Link, useParams } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { PageNotFound } from './404';
@@ -191,7 +191,34 @@ export const MoviePage = () => {
     };
 
     if (loading) {
-        return <p>loading...</p>;
+        return (<div>
+            <Navigation />
+            <p style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Loading the data, please wait...</p>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+
+                <Spinner
+                    color="primary"
+                    type="grow"
+                >
+                    Loading...
+                </Spinner>
+                &nbsp;&nbsp;
+                <Spinner
+                    color="primary"
+                    type="grow"
+                >
+                    Loading...
+                </Spinner>
+                &nbsp;&nbsp;
+                <Spinner
+                    color="primary"
+                    type="grow"
+                >
+                    Loading...
+                </Spinner>
+            </div>
+        </div>
+        )
     }
     if (error) {
         return <p>Something went wrong: {error.message}</p>;

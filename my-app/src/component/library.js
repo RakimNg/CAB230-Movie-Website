@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { Pagination, PaginationLink, PaginationItem } from 'reactstrap';
+import { Pagination, PaginationLink, Spinner, PaginationItem } from 'reactstrap';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Navigation } from './nav';
 
@@ -51,6 +51,7 @@ export function MoviesLib() {
     const Filter = (event) => {
         const regex = /^tt\d{7}$/;
         if (regex.test(event.target.value)) {
+
             setRecords(headlines.data.filter(f => f.imdbID === event.target.value))
         }
         else {
@@ -85,7 +86,34 @@ export function MoviesLib() {
 
     }
     if (loading) {
-        return <p>loading...</p>;
+        return (<div>
+            <Navigation />
+            <p style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Loading the data, please wait...</p>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+
+                <Spinner
+                    color="primary"
+                    type="grow"
+                >
+                    Loading...
+                </Spinner>
+                &nbsp;&nbsp;
+                <Spinner
+                    color="primary"
+                    type="grow"
+                >
+                    Loading...
+                </Spinner>
+                &nbsp;&nbsp;
+                <Spinner
+                    color="primary"
+                    type="grow"
+                >
+                    Loading...
+                </Spinner>
+            </div>
+        </div>
+        )
     }
 
     if (error) {

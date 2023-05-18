@@ -1,5 +1,6 @@
 import { Link, useNavigate, useLocation, useParams } from 'react-router-dom';
 import { PageNotFound } from './404';
+import { Spinner } from 'reactstrap';
 import React, { useEffect, useState } from 'react';
 import { Navigation } from './nav'
 import randomColor from 'randomcolor';
@@ -21,7 +22,7 @@ export const PersonPage = () => {
     const [OccuranceTimes, setOccuranceTimes] = useState([])
     const { imdbID } = useParams('imdbID')
     const [notFound, setNotFound] = useState(false)
-
+    const [finish, setFinish] = useState(false)
 
 
     useEffect(() => {
@@ -180,6 +181,7 @@ export const PersonPage = () => {
         // }
         // console.log(boxofficeArray);
         // console.log(yearArray);
+        setFinish(true)
     };
     const mapData = () => {
         const roles_arr = headlines?.roles
@@ -247,6 +249,38 @@ export const PersonPage = () => {
         return (
             <div>
                 <PageNotFound />
+            </div>
+        )
+    }
+    if (!finish) {
+        return (
+            <div>
+                <Navigation />
+                {mapData()}
+                <p style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Loading the charts, please wait...</p>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+
+                    <Spinner
+                        color="primary"
+                        type="grow"
+                    >
+                        Loading...
+                    </Spinner>
+                    &nbsp;&nbsp;
+                    <Spinner
+                        color="primary"
+                        type="grow"
+                    >
+                        Loading...
+                    </Spinner>
+                    &nbsp;&nbsp;
+                    <Spinner
+                        color="primary"
+                        type="grow"
+                    >
+                        Loading...
+                    </Spinner>
+                </div>
             </div>
         )
     }
