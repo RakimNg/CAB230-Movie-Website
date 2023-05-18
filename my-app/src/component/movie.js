@@ -1,28 +1,37 @@
 import { MoviesLib } from './library';
 import { Navigation } from './nav';
 import { Button, Alert } from 'reactstrap';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useParams } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
+import { PageNotFound } from './404';
 export const MoviePage = () => {
     const [headlines, setHeadlines] = useState([])
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState()
     const ID = localStorage.getItem("imdbID")
+    localStorage.removeItem("imdbID")
     const [visible, setVisible] = useState(true);
-
+    const { imdbID } = useParams();
+    const [notFound, setNotFound] = useState(false);
+    // Use the extracted parameters in your component
     const onDismiss = () => setVisible(false);
     useEffect(
         () => {
             // console.log("hello")
             const fetchData = async () => {
                 try {
-                    const response = await fetch(`http://sefdb02.qut.edu.au:3000/movies/data/${encodeURIComponent(ID)}`)
+                    const response = await fetch(`http://sefdb02.qut.edu.au:3000/movies/data/${encodeURIComponent(imdbID)}`)
                     const data1 = await response.json();
 
                     setHeadlines(data1)
-
+                    if (response.status === 404) {
+                        console.log("yes")
+                        setNotFound(true)
+                    }
                 }
+
                 catch (error) {
+
                     setError(error)
                     console.log(error)
                 }
@@ -186,6 +195,13 @@ export const MoviePage = () => {
     }
     if (error) {
         return <p>Something went wrong: {error.message}</p>;
+    }
+    if (notFound) {
+        return (
+            <div>
+                <PageNotFound />
+            </div>
+        )
     }
 
 

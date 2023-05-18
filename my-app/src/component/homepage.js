@@ -54,18 +54,11 @@ export function Homepage() {
                                             </CardText>
 
                                             <Button color="danger" onClick={() => {
-                                                console.log("hello there")
-                                                localStorage.setItem("imdbID", headlines.imdbID);
                                                 navigate(`movie/${headlines.imdbID}`)
-
                                             }}>View</Button>
-
                                         </CardBody>
-
                                     </Card>
-
                                 </Col>
-
                             ))}
                         </CardGroup>
                     </Row>
@@ -88,8 +81,9 @@ export function Homepage() {
                 // const dataArray = data.data;
                 // const MovieToday = [dataArray[0], dataArray[1], dataArray[2]]
                 setHeadlines(data);
+
             } catch (error) {
-                setError(error);
+                setError(error.message);
             } finally {
                 setLoading(false);
             }
@@ -108,7 +102,7 @@ export function Homepage() {
     }
 
     if (error) {
-        return <p>Something went wrong: {error.message}</p>;
+        return <p>Something went wrong: {error}</p>;
     }
 
     return (<div>

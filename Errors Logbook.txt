@@ -120,3 +120,15 @@ that is not an array in the mapping seciton, they will be repetitive showed.
 When you use localStorage.getItem("abc"), dont set it using useState, it will causes too many re-render errors
 =================================================
 Dont clear the data right after the mapping func is called as the mapping can be unsync.
+===========================================================
+how to read url params: useParams from react router dom:
+last page: navigate('/movie/id')
+next page: const { imdbID } = useParams('imdbID');
+fetch(url + imdbID)
+================================================
+JSX element cannot be returned by a useEffect
+like this: useEffect(()=>{return <div><p>hello</p></div>},[])
+use useState to set something to true and return it at the end of the func conditionally
+=====================================
+const flattenedArray = genreArray.flat(Infinity);
+make multiple dimension array to one dimension

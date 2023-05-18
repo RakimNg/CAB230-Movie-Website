@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { Nav, NavItem, NavLink, Container, Row, Col, Card, CardGroup, CardBody, CardTitle, CardText, CardSubtitle, Button, CardImg, UncontrolledCarousel, Label, Input } from 'reactstrap';
+import { Pagination, PaginationLink, PaginationItem } from 'reactstrap';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Navigation } from './nav';
 
@@ -9,14 +9,12 @@ export function MoviesLib() {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true)
     const [headlines, setHeadlines] = useState([]);
-    // const navigate = useNavigate()
-    // const useData = () => {
-    // const [loading, setLoading] = useState(true);
-    // const [error, setError] = useState(null);
+    const [page, setPage] = useState(1)
+
     useEffect(() => {
         const getData = async () => {
             try {
-                const res = await fetch('http://sefdb02.qut.edu.au:3000/movies/search?title=a');
+                const res = await fetch(`http://sefdb02.qut.edu.au:3000/movies/search?page=${encodeURIComponent(page)}`);
                 const data = await res.json();
                 const dataArray = data;
 
@@ -30,8 +28,23 @@ export function MoviesLib() {
         };
 
         getData();
-    }, []);
-
+    }, [page]);
+    const handleFirstPageClick = () => {
+        setPage(1)
+        // window.scrollTo({ top: 0, behavior: 'auto' });
+    }
+    const handleLastPageClick = () => {
+        setPage(122)
+        // window.scrollTo({ top: 0, behavior: 'auto' });
+    }
+    const handleNextPageClick = () => {
+        setPage(page + 1)
+        // window.scrollTo({ top: 0, behavior: 'auto' });
+    }
+    const handlePreviousPageClick = () => {
+        setPage(page - 1)
+        // window.scrollTo({ top: 0, behavior: 'auto' });
+    }
     // return { loading, error, headlines };
     // };
 
@@ -57,9 +70,7 @@ export function MoviesLib() {
                     <td>{prop.year}</td>
                     <td>{prop.imdbRating}</td>
                     <td>{prop.classification}</td>
-                    <td><Link to={`/movie/${prop.imdbID}`} onClick={() => {
-                        localStorage.setItem("imdbID", prop.imdbID);
-                    }} >{prop.imdbID}</Link></td>
+                    <td><Link to={`/movie/${prop.imdbID}`}>{prop.imdbID}</Link></td>
                     <td>
 
                     </td>
@@ -107,11 +118,42 @@ export function MoviesLib() {
 
                         </tbody>
                     </table >
+                    <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                        <Pagination aria-label="Page navigation example">
+                            <PaginationItem>
+                                <PaginationLink onClick={handleFirstPageClick}
+                                    first
+                                />
+                            </PaginationItem>
+                            <PaginationItem>
+                                <PaginationLink onClick={handlePreviousPageClick}
+                                    previous
+                                />
+                            </PaginationItem>
+                            <PaginationItem active>
+                                <PaginationLink to="#">
+                                    {page}
+                                </PaginationLink>
+                            </PaginationItem>
+
+                            <PaginationItem>
+                                <PaginationLink onClick={handleNextPageClick}
+                                    next
+                                />
+                            </PaginationItem>
+                            <PaginationItem>
+                                <PaginationLink onClick={handleLastPageClick}
+                                    last
+                                />
+                            </PaginationItem>
+                        </Pagination>
+                    </div>
                 </div >
 
 
 
             </div >
+
         </div>
 
 

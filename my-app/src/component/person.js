@@ -1,4 +1,5 @@
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate, useLocation, useParams } from 'react-router-dom';
+import { PageNotFound } from './404';
 import React, { useEffect, useState } from 'react';
 import { Navigation } from './nav'
 import randomColor from 'randomcolor';
@@ -18,7 +19,8 @@ export const PersonPage = () => {
     const [data1, setData1] = useState([])
     const [UniqueGenres, setUniqueGenres] = useState([])
     const [OccuranceTimes, setOccuranceTimes] = useState([])
-
+    const { imdbID } = useParams('imdbID')
+    const [notFound, setNotFound] = useState(false)
 
 
 
@@ -46,7 +48,7 @@ export const PersonPage = () => {
             const token = localStorage.getItem("token")
             const ID = localStorage.getItem("personID")
             try {
-                const response = await fetch(`http://sefdb02.qut.edu.au:3000/people/${encodeURIComponent(ID)}`, {
+                const response = await fetch(`http://sefdb02.qut.edu.au:3000/people/${encodeURIComponent(imdbID)}`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
@@ -54,6 +56,11 @@ export const PersonPage = () => {
                     },
 
                 })
+                if (response.status == 404) {
+                    setNotFound(true)
+                }
+
+
                 const data1 = await response.json()
 
                 setHeadlines(data1)
@@ -82,7 +89,10 @@ export const PersonPage = () => {
     const fetchMoreData = async (ID_arr) => {
         const boxofficeArray = [];
         const yearArray = [];
+        // const repeatYearArr = []
         const genreArray = []
+        // const ratingArray = []
+        // const averageRatingArray = []
         const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
         console.log(ID_arr);
 
@@ -97,7 +107,13 @@ export const PersonPage = () => {
                 const data = await res.json();
                 tempArray.push(data); // Add fetched data to temporary array
             } catch (error) {
-                setError(error);
+                if (error.response && error.response.status == 401) {
+                    setError("unauthorized access, please log in")
+                }
+                else {
+                    setError(error);
+
+                }
             } finally {
                 setLoading(false);
             }
@@ -113,6 +129,10 @@ export const PersonPage = () => {
                     // console.log("this is all year Arr: " + yearArray);
                     // console.log("upcoming year: " + data.year + " existing year: " + yearArray[i]);
                     boxofficeArray[i] += data.boxoffice;
+                    // ratingArray[i] += data.ratings[0].value
+                    // console.log("data is: " + data.ratings[0].value)
+                    // repeatYearArr.push(data.year);
+                    // yearArray.push(data.year);
                     // console.log("The result of two box office plus: " + boxofficeArray[i]);
                     matchFound = true;
                     break; // Exit the loop since a match was found
@@ -124,23 +144,37 @@ export const PersonPage = () => {
                 // console.log("when two year is not equal, boxoffice: " + boxofficeArray);
                 yearArray.push(data.year);
                 boxofficeArray.push(data.boxoffice);
+                // repeatYearArr.push(data.year)
+                // ratingArray.push(data.ratings[0].value)
             }
         }
         setBoxoffices(boxofficeArray)
-        setYears(yearArray)
+        // setYears(yearArray)
         const flattenedArray = genreArray.flat(Infinity);
         let uniqueGenres = Array.from(new Set(flattenedArray));
+        // let uniqueYears = Array.from(new Set(yearArray))
         let occurancetimes = []
+        // let occuranceYears = []
+        // console.log("unique years:" + uniqueYears)
         console.log("genres array: " + uniqueGenres)
         for (const genre of uniqueGenres) {
             let occurrences = countOccurrences(flattenedArray, genre);
+
             occurancetimes.push(occurrences)
-            console.log("data type" + typeof occurrences)
         }
-        console.log(occurancetimes)
+        // for (const year of uniqueYears) {
+        //     let occurrencesY = countOccurrences(yearArray, year)
+        //     occuranceYears.push(occurrencesY)
+        // }
+
         setUniqueGenres(uniqueGenres)
         setOccuranceTimes(occurancetimes)
-
+        // console.log(occuranceYears)
+        // console.log(ratingArray)
+        // for (let i = 0; i < ratingArray.length; i++) {
+        //     averageRatingArray.push(ratingArray[i] / occuranceYears[i])
+        // }
+        setYears(yearArray)
         // for (const genre of uniqueGenres) {
         //     console.log(genre)
         // }
@@ -167,7 +201,7 @@ export const PersonPage = () => {
             < div class="text-center">
 
                 <p>Name: {headlines.name}</p>
-                <p>Birth Year: {headlines.birthYear}</p>
+                {headlines.birthYear && <p>Birth Year:{headlines.birthYear}</p>}
 
                 {headlines.deathYear && <p>Death Year:{headlines.deathYear}</p>}
                 <p>Movies Performed:</p>
@@ -209,6 +243,13 @@ export const PersonPage = () => {
     if (error) {
         return <p>Something went wrong: {error.message}</p>;
     }
+    if (notFound) {
+        return (
+            <div>
+                <PageNotFound />
+            </div>
+        )
+    }
     return (
 
         <div>
@@ -219,9 +260,8 @@ export const PersonPage = () => {
 
 
                     <LineChart
-                        width={650} // Increase the width
-                        height={500} // Increase the height
-                        // data={data1}
+                        width={650}
+                        height={500}
                         data={data.sort((a, b) => a.year - b.year)}
                         margin={{
                             top: 5,
@@ -250,12 +290,11 @@ export const PersonPage = () => {
                         }}
                     >
                         <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="genre" angle={-45} />
+                        <XAxis dataKey="genre" />
                         <YAxis />
                         <Tooltip />
                         <Legend />
                         <Bar dataKey="times" fill="#8884d8" />
-                        {/* <Bar dataKey="uv" fill="#82ca9d" /> */}
                     </BarChart>
 
 

@@ -32,15 +32,23 @@ export const SearchPerson = () => {
                     },
 
                 })
+
+                if (response.status === 401) {
+                    setError('You do not have access for that.')
+                }
                 const data1 = await response.json()
 
                 setHeadlines(data1)
 
 
             }
+
             catch (error) {
-                setError(error)
-                console.log(error)
+
+
+                setError(error.message)
+                console.log(error.message)
+
             }
             finally {
                 setLoading(false)
@@ -116,9 +124,7 @@ export const SearchPerson = () => {
                         <small className="text-muted">
                             Roles: {getRole(roles_arr)}
                         </small>
-                        <Link to={`/person/${data}`} onClick={() => {
-                            localStorage.setItem("personID", data);
-                        }} >View</Link>
+                        <Link to={`/person/${data}`}>View</Link>
                     </CardText>
 
                 </CardBody>
@@ -141,7 +147,14 @@ export const SearchPerson = () => {
         return <p>loading...</p>;
     }
     if (error) {
-        return <p>Something went wrong: {error.message}</p>;
+        return (
+            <div style={{ display: 'flex' }}>
+                <p>Something went wrong: {error} Please </p>
+                &nbsp;&nbsp;
+                <Link to="/login">Login</Link>
+            </div>
+        )
+
     }
     return (
 
