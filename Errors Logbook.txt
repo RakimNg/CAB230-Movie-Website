@@ -133,4 +133,5 @@ use useState to set something to true and return it at the end of the func condi
 const flattenedArray = genreArray.flat(Infinity);
 make multiple dimension array to one dimension
 ===================================
-how to center a div in jsx: <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+how to center a div in jsx: <div style={{ display: 'flex', justifyContent: 'center' }}>
+=====================================================

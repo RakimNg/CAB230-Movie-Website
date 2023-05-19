@@ -1,16 +1,49 @@
-
 import React, { useEffect, useState } from 'react';
 import { Pagination, PaginationLink, Spinner, PaginationItem } from 'reactstrap';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Navigation } from './nav';
 
 export function MoviesLib() {
+    const [input, setInput] = useState()
     const [records, setRecords] = useState([])
+    const [data, setData] = useState()
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true)
     const [headlines, setHeadlines] = useState([]);
     const [page, setPage] = useState(1)
+    const navigate = useNavigate()
+    const handleInputChange = (event) => {
+        const regex = /^tt\d{7}$/;
 
+        if (regex.test(event.target.value)) {
+            navigate(`/movie/${event.target.value}`)
+            event.preventDefault()
+
+        }
+        console.log(event.target.value)
+        setInput(event.target.value)
+    }
+    const handleSubmit = (event) => {
+
+        event.preventDefault()
+        setHeadlines(input)
+
+    }
+    useEffect(() => {
+        const fetchMovie = async () => {
+            try {
+                const res = await fetch(`http://sefdb02.qut.edu.au:3000/movies/search?title=${encodeURIComponent(headlines)}`);
+                const data = await res.json();
+                const dataArray = data;
+                setRecords(dataArray.data)
+            } catch (error) {
+                setError(error);
+            } finally {
+                setLoading(false);
+            }
+        }
+        fetchMovie()
+    }, [headlines])
     useEffect(() => {
         const getData = async () => {
             try {
@@ -18,7 +51,7 @@ export function MoviesLib() {
                 const data = await res.json();
                 const dataArray = data;
 
-                setHeadlines(dataArray);
+                // setHeadlines(dataArray);
                 setRecords(dataArray.data);
             } catch (error) {
                 setError(error);
@@ -48,19 +81,19 @@ export function MoviesLib() {
     // return { loading, error, headlines };
     // };
 
-    const Filter = (event) => {
-        const regex = /^tt\d{7}$/;
-        if (regex.test(event.target.value)) {
+    // const Filter = (event) => {
+    //     const regex = /^tt\d{7}$/;
+    //     if (regex.test(event.target.value)) {
 
-            setRecords(headlines.data.filter(f => f.imdbID === event.target.value))
-        }
-        else {
-            setRecords(headlines.data.filter(f => f.title.toLowerCase().includes(event.target.value.toLowerCase())))
+    //         setRecords(headlines.data.filter(f => f.imdbID === event.target.value))
+    //     }
+    //     else {
+    //         setRecords(headlines.data.filter(f => f.title.toLowerCase().includes(event.target.value.toLowerCase())))
 
-        }
-        // }
-        console.log(records)
-    }
+    //     }
+    //     // }
+    //     console.log(records)
+    // }
     const mapData = () => {
         return (
 
@@ -122,11 +155,16 @@ export function MoviesLib() {
     return (
         <div>
             <Navigation />
-            <header>Welcome to movies library</header>
             <div className='p-5 bg-light'>
                 <div className='bg-white shadow border'>
+                    <form onSubmit={handleSubmit}>
+                        <div style={{ display: 'flex' }}>
+                            <input type="text" className='form-control' onChange={handleInputChange} placeholder='Search movie name or movie ID' />
+                            <button type="submit">Search</button>
 
-                    <input type="text" className='form-control' onChange={Filter} placeholder='Search movie name or movie ID' />
+                        </div>
+                    </form>
+
 
 
                     <table className='table'>
