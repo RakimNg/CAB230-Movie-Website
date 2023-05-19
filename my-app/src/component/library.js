@@ -9,8 +9,9 @@ export function MoviesLib() {
     const [data, setData] = useState()
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true)
-    const [headlines, setHeadlines] = useState([]);
+    const [headlines, setHeadlines] = useState('');
     const [page, setPage] = useState(1)
+    const [lastpage, setLastPage] = useState()
     const navigate = useNavigate()
     const handleInputChange = (event) => {
         const regex = /^tt\d{7}$/;
@@ -24,7 +25,7 @@ export function MoviesLib() {
         setInput(event.target.value)
     }
     const handleSubmit = (event) => {
-
+        setPage(1)
         event.preventDefault()
         setHeadlines(input)
 
@@ -32,10 +33,14 @@ export function MoviesLib() {
     useEffect(() => {
         const fetchMovie = async () => {
             try {
-                const res = await fetch(`http://sefdb02.qut.edu.au:3000/movies/search?title=${encodeURIComponent(headlines)}`);
+
+                const res = await fetch(`http://sefdb02.qut.edu.au:3000/movies/search?title=${encodeURIComponent(headlines)}&page=${page}`);
                 const data = await res.json();
                 const dataArray = data;
+                const pages = dataArray.pagination
+                setLastPage(pages.lastPage)
                 setRecords(dataArray.data)
+                console.log(dataArray)
             } catch (error) {
                 setError(error);
             } finally {
@@ -43,39 +48,28 @@ export function MoviesLib() {
             }
         }
         fetchMovie()
-    }, [headlines])
-    useEffect(() => {
-        const getData = async () => {
-            try {
-                const res = await fetch(`http://sefdb02.qut.edu.au:3000/movies/search?page=${encodeURIComponent(page)}`);
-                const data = await res.json();
-                const dataArray = data;
+    }, [headlines, page])
 
-                // setHeadlines(dataArray);
-                setRecords(dataArray.data);
-            } catch (error) {
-                setError(error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        getData();
-    }, [page]);
     const handleFirstPageClick = () => {
         setPage(1)
         // window.scrollTo({ top: 0, behavior: 'auto' });
     }
     const handleLastPageClick = () => {
-        setPage(122)
+        setPage(lastpage)
         // window.scrollTo({ top: 0, behavior: 'auto' });
     }
     const handleNextPageClick = () => {
-        setPage(page + 1)
+        if (page < lastpage) {
+            setPage(page + 1)
+
+        }
         // window.scrollTo({ top: 0, behavior: 'auto' });
     }
     const handlePreviousPageClick = () => {
-        setPage(page - 1)
+        if (page > 1) {
+            setPage(page - 1)
+
+        }
         // window.scrollTo({ top: 0, behavior: 'auto' });
     }
     // return { loading, error, headlines };
