@@ -8,7 +8,6 @@ export const SearchPerson = () => {
     const [headlines, setHeadlines] = useState([])
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState()
-
     const handleSubmit = (event) => {
         event.preventDefault();
         setData(records)
@@ -36,6 +35,9 @@ export const SearchPerson = () => {
                 if (response.status === 401) {
                     setError('You do not have access for that.')
                 }
+                // if (response.status == 404) {
+                //     setError('The id you provided doesnt exist.')
+                // }
                 const data1 = await response.json()
 
                 setHeadlines(data1)
@@ -149,9 +151,10 @@ export const SearchPerson = () => {
     if (error) {
         return (
             <div style={{ display: 'flex' }}>
-                <p>Something went wrong: {error} Please </p>
-                &nbsp;&nbsp;
-                <Link to="/login">Login</Link>
+                <p>Something went wrong: {error} </p>
+                <Link to="login">
+                    login here
+                </Link>
             </div>
         )
 

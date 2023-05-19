@@ -16,6 +16,7 @@ import { MoviePage } from './component/movie';
 import { SearchPerson } from './component/searchPerson';
 import { LogOutPage } from './component/logout';
 import { PageNotFound } from './component/404';
+import { SettingPage } from './component/setting';
 const router = createBrowserRouter([{
   path: "/",
   element: (<Homepage />),
@@ -53,6 +54,10 @@ const router = createBrowserRouter([{
 {
   path: "*",
   element: (<PageNotFound />)
+},
+{
+  path: "setting",
+  element: (<SettingPage />)
 }
 ])
 

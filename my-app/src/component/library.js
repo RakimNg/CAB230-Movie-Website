@@ -35,12 +35,14 @@ export function MoviesLib() {
             try {
 
                 const res = await fetch(`http://sefdb02.qut.edu.au:3000/movies/search?title=${encodeURIComponent(headlines)}&page=${page}`);
+
                 const data = await res.json();
                 const dataArray = data;
                 const pages = dataArray.pagination
                 setLastPage(pages.lastPage)
                 setRecords(dataArray.data)
                 console.log(dataArray)
+
             } catch (error) {
                 setError(error);
             } finally {
@@ -144,7 +146,9 @@ export function MoviesLib() {
     }
 
     if (error) {
-        return <p>Something went wrong: {error.message}</p>;
+        return (
+
+            <p>Something went wrong: {error.message}</p>);
     }
     return (
         <div>

@@ -144,7 +144,7 @@ export function Homepage() {
         <Navigation />
         <div class="hero">
             <div class="hero-content">
-                <h1 class="hero-title">Welcome to Our Website</h1>
+                <h1 class="hero-title">Welcome to Movie Lib Website</h1>
                 <p class="hero-subtitle">Explore the fantastic movie world!</p>
             </div>
         </div>

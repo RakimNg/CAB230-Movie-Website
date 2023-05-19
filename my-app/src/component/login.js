@@ -7,12 +7,10 @@ export function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
-    const [login, setLogin] = useState(false);
     const navigate = useNavigate();
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log(`Email: ${email}, Password: ${password}`);
-        localStorage.setItem("email", email);
         fetch('http://sefdb02.qut.edu.au:3000/user/login', {
             method: 'POST',
             headers: {
@@ -34,8 +32,6 @@ export function Login() {
                 localStorage.setItem("refreshToken", data.refreshToken.token)
                 console.log(data.refreshToken.token)
                 localStorage.setItem("timestamp", Date.now());
-                setLogin('true')
-                console.log(login)
                 // console.log(res);
             })
 

@@ -1,0 +1,39 @@
+.settings-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.settings-panel {
+    width: 400px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.radio-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.radio-container label {
+    margin-bottom: 10px;
+}
+
+.radio-container input[type="radio"] {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #0DB7FC;
+    border-radius: 50%;
+    outline: none;
+    margin-right: 8px;
+}
+
+.radio-container input[type="radio"]:checked {
+    background-color: #0DB7FC;
+}
