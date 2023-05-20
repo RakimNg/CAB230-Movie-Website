@@ -62,8 +62,8 @@ export const SettingPage = () => {
     return (
         <div>
             <Navigation />
-            <div className="settings-container">
-                <div className="settings-panel">
+            <div className="setting-container">
+                <div className="setting-panel">
                     <h2>Login Expires in</h2>
                     <form onSubmit={handleSubmit}>
                         <div className="radio-container">

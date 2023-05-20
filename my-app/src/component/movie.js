@@ -78,7 +78,7 @@ export const MoviePage = () => {
 
                         </div>
                     ))}
-                    <p>Characters:</p>
+                    <p>Participants</p>
                     <Table bordered striped>
                         <thead >
                             <tr className='danger'>
@@ -134,7 +134,7 @@ export const MoviePage = () => {
 
                     </div>
                 ))}
-                <p>Characters:</p>
+                <p>Participants</p>
                 {/* <table className='table'> */}
                 <Table bordered striped>
                     <thead >
