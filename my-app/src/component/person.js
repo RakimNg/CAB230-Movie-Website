@@ -22,6 +22,7 @@ export const PersonPage = () => {
     const [finish, setFinish] = useState(false)
     const [tokenState, setTokenState] = useState()
     const [error429, setError429] = useState(false)
+    const [ChartData, setChartData] = useState([])
     useEffect(() => {
         const data = years.map((year, index) => ({
             year: year,
@@ -84,81 +85,87 @@ export const PersonPage = () => {
             return count;
         }, 0);
     }
-    const fetchMoreData = async (ID_arr) => {
-        const boxofficeArray = [];
-        const yearArray = [];
-        const genreArray = []
-        console.log(ID_arr);
+    useEffect(() => {
+        const fetchMoreData = async (ID_arr) => {
 
-        const tempArray = [];
+            const boxofficeArray = [];
+            const yearArray = [];
+            const genreArray = []
+            console.log(ID_arr);
 
-        for (const id of ID_arr) {
-            try {
-                // await delay(50);
-                const res = await fetch(`http://sefdb02.qut.edu.au:3000/movies/data/${id}`);
-                if (res.status == 429) {
-                    console.log("429 detected")
-                    setError429(true)
-                }
-                const data = await res.json();
-                tempArray.push(data);
+            const tempArray = [];
 
-            } catch (error) {
-                if (error.response && error.response.status == 401) {
-                    setError("unauthorized access, please log in")
-                }
+            for (const id of ID_arr) {
+                try {
+                    console.log("func executed")
+                    // await delay(50);
+                    const res = await fetch(`http://sefdb02.qut.edu.au:3000/movies/data/${id}`);
+                    if (res.status == 429) {
+                        setError429(true)
+                    }
+                    const data = await res.json();
+                    tempArray.push(data);
 
-                else {
-                    setError(error);
+                } catch (error) {
+                    if (error.response && error.response.status == 401) {
+                        setError("unauthorized access, please log in")
+                    }
 
-                }
-            } finally {
-                setLoading(false);
-            }
-        }
+                    else {
+                        setError(error);
 
-        for (const data of tempArray) {
-            genreArray.push(data.genres)
-
-            let matchFound = false;
-
-            for (let i = 0; i < yearArray.length; i++) {
-                if (data.year == yearArray[i]) {
-
-                    boxofficeArray[i] += data.boxoffice;
-
-                    matchFound = true;
-                    break;
+                    }
+                } finally {
+                    setLoading(false);
                 }
             }
 
-            if (!matchFound) {
+            for (const data of tempArray) {
+                genreArray.push(data.genres)
 
-                yearArray.push(data.year);
-                boxofficeArray.push(data.boxoffice);
+                let matchFound = false;
 
+                for (let i = 0; i < yearArray.length; i++) {
+                    if (data.year == yearArray[i]) {
+
+                        boxofficeArray[i] += data.boxoffice;
+
+                        matchFound = true;
+                        break;
+                    }
+                }
+
+                if (!matchFound) {
+
+                    yearArray.push(data.year);
+                    boxofficeArray.push(data.boxoffice);
+
+                }
             }
-        }
-        setBoxoffices(boxofficeArray)
-        const flattenedArray = genreArray.flat(Infinity);
-        let uniqueGenres = Array.from(new Set(flattenedArray));
-        let occurancetimes = []
+            setBoxoffices(boxofficeArray)
+            const flattenedArray = genreArray.flat(Infinity);
+            let uniqueGenres = Array.from(new Set(flattenedArray));
+            let occurancetimes = []
 
-        console.log("genres array: " + uniqueGenres)
-        for (const genre of uniqueGenres) {
-            let occurrences = countOccurrences(flattenedArray, genre);
+            console.log("genres array: " + uniqueGenres)
+            for (const genre of uniqueGenres) {
+                let occurrences = countOccurrences(flattenedArray, genre);
 
-            occurancetimes.push(occurrences)
-        }
+                occurancetimes.push(occurrences)
+            }
 
 
-        setUniqueGenres(uniqueGenres)
-        setOccuranceTimes(occurancetimes)
+            setUniqueGenres(uniqueGenres)
+            setOccuranceTimes(occurancetimes)
 
-        setYears(yearArray)
+            setYears(yearArray)
 
-        setFinish(true)
-    };
+            setFinish(true)
+        };
+        fetchMoreData(ChartData)
+
+    }, [ChartData])
+
     const mapData = () => {
         const roles_arr = headlines?.roles
         const ID_arr = []
@@ -169,7 +176,9 @@ export const PersonPage = () => {
                 ID_arr.push(role.movieId)
             }
             console.log(ID_arr)
-            fetchMoreData(ID_arr)
+
+            // fetchMoreData(ID_arr)
+            setChartData(ID_arr)
             setStatus(true)
         }
 
@@ -217,18 +226,11 @@ export const PersonPage = () => {
         return <p>loading...</p>;
     }
     if (error429 == true) {
-        console.log("429 captured")
         return (
             <div>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    {/* // <div style={{ justifyContent: 'center' }}> */}
-
                     <img src='https://img.freepik.com/free-vector/error-429-concept-illustration_114360-4108.jpg?size=626&ext=jpg&ga=GA1.1.1326508372.1684393841&semt=sph' alt='429 error' ></img>
                 </div>
-
-
-
-
                 <div style={{ justifyContent: 'center', display: 'flex' }}>
 
                     <h4>We are sorry. You sent too many requests. Please come back to this site later.</h4>
