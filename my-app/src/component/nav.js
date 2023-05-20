@@ -210,7 +210,7 @@ export function Navigation() {
                             </li>
 
                         </Link>
-                        <p>{localStorageValue}</p>
+                        <s>{localStorageValue}</s>
                     </ul>
                 </nav>
 

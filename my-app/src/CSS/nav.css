@@ -61,6 +61,17 @@ body {
     background-color: #555;
 }
 
+.nav s {
+    text-decoration: none;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: .25rem;
+    cursor: default;
+    color: grey;
+    font-size: 15px;
+}
+
 .nav li:hover {
     background-color: #777;
 }
