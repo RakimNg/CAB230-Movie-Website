@@ -1,6 +1,6 @@
 import { MoviesLib } from './library';
 import { Navigation } from './nav';
-import { Button, Alert, Spinner } from 'reactstrap';
+import { Button, Alert, Spinner, Table } from 'reactstrap';
 import { useNavigate, Link, useParams } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { PageNotFound } from './404';
@@ -8,16 +8,10 @@ export const MoviePage = () => {
     const [headlines, setHeadlines] = useState([])
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState()
-    const ID = localStorage.getItem("imdbID")
-    localStorage.removeItem("imdbID")
-    const [visible, setVisible] = useState(true);
     const { imdbID } = useParams();
     const [notFound, setNotFound] = useState(false);
-    // Use the extracted parameters in your component
-    const onDismiss = () => setVisible(false);
     useEffect(
         () => {
-            // console.log("hello")
             const fetchData = async () => {
                 try {
                     const response = await fetch(`http://sefdb02.qut.edu.au:3000/movies/data/${encodeURIComponent(imdbID)}`)
@@ -86,7 +80,7 @@ export const MoviePage = () => {
                         </div>
                     ))}
                     <p>Characters:</p>
-                    <table className='table'>
+                    <Table bordered striped>
                         <thead >
                             <tr className='danger'>
 
@@ -99,7 +93,7 @@ export const MoviePage = () => {
                         <tbody>
                             {principals_arr.map((principal) => (
 
-                                <tr key={principal.id} className='table-info'>
+                                <tr key={principal.id}>
 
                                     <th>{principal.id}</th>
                                     <th>{principal.category}</th>
@@ -109,7 +103,7 @@ export const MoviePage = () => {
                                 </tr>
                             ))}
                         </tbody>
-                    </table>
+                    </Table>
 
                 </div>
 
@@ -142,7 +136,8 @@ export const MoviePage = () => {
                     </div>
                 ))}
                 <p>Characters:</p>
-                <table className='table'>
+                {/* <table className='table'> */}
+                <Table bordered striped>
                     <thead >
                         <tr className='danger'>
 
@@ -155,7 +150,7 @@ export const MoviePage = () => {
                     <tbody>
                         {principals_arr.map((principal) => (
 
-                            <tr key={principal.id} className='table-info'>
+                            <tr key={principal.id}>
 
                                 <th><Link to={`/person/${principal.id}`} onClick={() => {
 
@@ -171,7 +166,8 @@ export const MoviePage = () => {
                             </tr>
                         ))}
                     </tbody>
-                </table>
+                    {/* </table> */}
+                </Table>
 
             </div>
 

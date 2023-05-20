@@ -10,14 +10,9 @@ export function Navigation() {
     let refreshToken = localStorage.getItem("refreshToken")
     let token = localStorage.getItem("token")
     const radioButton = localStorage.getItem("radioButton")
-    const [status, setStatus] = useState(0)
+    const [refreshStatus, setRefreshStatus] = useState(0)
+
     const refresh = async () => {
-        // if (radioButton == 'true' && token && new_timestamp - timestamp > 600000) {
-        // if (radioButton == 'true' && refreshToken && new_timestamp - timestamp < 600000) {
-        console.log("enter the refresh func")
-        console.log(refreshToken)
-
-
         const response = await fetch(`http://sefdb02.qut.edu.au:3000/user/refresh`, {
             method: 'POST',
             headers: {
@@ -39,100 +34,19 @@ export function Navigation() {
         console.log(localStorage.getItem("token"))
         console.log(localStorage.getItem("refreshToken"))
     }
-    // }
-    // if (token && new_timestamp - timestamp > 600000) {
-    // }
+
     useEffect(() => {
         if (refreshToken && new_timestamp - timestamp > 590000 && radioButton == 'true') {
             console.log("refresh conditions activated ")
             refresh()
-            setStatus(1)
+            setRefreshStatus(1)
 
         }
 
 
     }, [])
 
-    // if (token && new_timestamp - timestamp > 600000) {
-
-    //     localStorage.removeItem("refreshToken")
-    //     localStorage.removeItem("token")
-    //     // if (1assd) {
-    //     //     const response = fetch(`http://sefdb02.qut.edu.au:3000/user/refresh`, {
-    //     //         method: 'POST',
-    //     //         headers: {
-    //     //             'Accept': 'application/json',
-    //     //             'Content-Type': 'application/json'
-    //     //         },
-    //     //         body: JSON.stringify({
-    //     //             refreshToken: refreshToken
-    //     //         })
-    //     //     })
-    //     //     .then(data => response.json())
-    //     // }
-    //     console.log(`token expired, time stamp: ${timestamp}, new stamp: ${new_timestamp}`)
-    //     return (
-    //         <div>
-    //             <nav className='nav'
-    //             >
-    //                 <Link to="/">
-    //                     <a>
-    //                         <img src='https://i.pinimg.com/564x/57/2a/4e/572a4e04db252bb959cdfd85342a1cd9.jpg' width={120} height={80} alt='logo' class="transparent-background" />
-    //                     </a>
-    //                     <a className='site-title'>
-    //                         Movie Lib
-    //                     </a>
-    //                 </Link>
-
-
-    //                 <ul>
-
-    //                     <Link to="/movies">
-    //                         <li>
-    //                             <a>Search Movie</a>
-    //                         </li>
-    //                     </Link>
-    //                     <p>Search People</p>
-    //                     <Link to="/register">
-    //                         <li>
-    //                             <a>Register</a>
-    //                         </li>
-    //                     </Link>
-    //                     <Link to="/login">
-    //                         <li>
-    //                             <a>Login</a>
-    //                         </li>
-    //                     </Link>
-    //                     <p>Log Out</p>
-    //                     <p>Setting</p>
-
-
-    //                 </ul>
-
-
-
-
-    //             </nav>
-    //             <div class="alert-container">
-    //                 <Alert color="primary">
-    //                     You login session has expired.&nbsp;
-    //                     <Link
-    //                         className="alert-link"
-    //                         to="/login"
-    //                         target="_blank"
-    //                     >
-
-    //                         Log in here
-    //                     </Link>
-    //                     &nbsp;
-    //                     if you like.
-    //                 </Alert>
-    //             </div>
-    //         </div>
-
-    //     )
-    // }
-    if (status == 1) {
+    if (refreshStatus == 1) {
         return (
 
             <div>

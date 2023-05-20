@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Pagination, PaginationLink, Spinner, PaginationItem } from 'reactstrap';
+import { Pagination, PaginationLink, Spinner, PaginationItem, Table } from 'reactstrap';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Navigation } from './nav';
 
@@ -165,7 +165,8 @@ export function MoviesLib() {
 
 
 
-                    <table className='table'>
+                    {/* <table className='table'> */}
+                    <Table striped bordered>
                         <thead>
                             <tr>
 
@@ -181,7 +182,8 @@ export function MoviesLib() {
 
 
                         </tbody>
-                    </table >
+                        {/* </table > */}
+                    </Table>
                     <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
                         <Pagination aria-label="Page navigation example">
                             <PaginationItem>

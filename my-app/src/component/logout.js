@@ -1,5 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
+import '../CSS/RegisterAndLogin.css'
 export const LogOutPage = () => {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState()
@@ -44,19 +45,23 @@ export const LogOutPage = () => {
         return <p>Something went wrong: {error.message}</p>;
     }
     return (
-        <div>
-            <h5>
-                You have log out!
-            </h5>
+        <div className='page-container'>
+            <div className='panel'>
+                <h5>
+                    You have log out!
+                </h5>
+                <p>
 
-            <Link to="/">
-                Back to Homepage
-            </Link>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <Link to="/login">
-                Login
-            </Link>
 
+                    <Link to="/">
+                        Back to Homepage
+                    </Link>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <Link to="/login">
+                        Login
+                    </Link>
+                </p>
+            </div>
         </div>
     )
 }

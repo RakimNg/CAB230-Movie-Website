@@ -1,15 +1,12 @@
 import { Link, useNavigate, useLocation, useParams } from 'react-router-dom';
 import { PageNotFound } from './404';
-import { Spinner } from 'reactstrap';
+import { Spinner, Table } from 'reactstrap';
 import React, { useEffect, useState } from 'react';
 import { Navigation } from './nav'
-import randomColor from 'randomcolor';
 import { PieChart, Pie, Cell, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { BarChart, Bar } from 'recharts';
-import { PureComponent } from 'react';
 import '../CSS/chart.css'
 export const PersonPage = () => {
-    // const [data, setData] = useState([])
     const [headlines, setHeadlines] = useState([])
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState()
@@ -23,8 +20,7 @@ export const PersonPage = () => {
     const { imdbID } = useParams('imdbID')
     const [notFound, setNotFound] = useState(false)
     const [finish, setFinish] = useState(false)
-
-
+    const [tokenState, setTokenState] = useState()
     useEffect(() => {
         const data = years.map((year, index) => ({
             year: year,
@@ -47,7 +43,7 @@ export const PersonPage = () => {
     useEffect(() => {
         const fetchData = async () => {
             const token = localStorage.getItem("token")
-            const ID = localStorage.getItem("personID")
+            setTokenState(token)
             try {
                 const response = await fetch(`http://sefdb02.qut.edu.au:3000/people/${encodeURIComponent(imdbID)}`, {
                     method: "GET",
@@ -90,23 +86,18 @@ export const PersonPage = () => {
     const fetchMoreData = async (ID_arr) => {
         const boxofficeArray = [];
         const yearArray = [];
-        // const repeatYearArr = []
         const genreArray = []
-        // const ratingArray = []
-        // const averageRatingArray = []
         const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
         console.log(ID_arr);
 
-        const tempArray = []; // Temporary array to store fetched data
+        const tempArray = [];
 
         for (const id of ID_arr) {
-            // console.log(id);
-            // console.log("hello");
             try {
                 await delay(50);
                 const res = await fetch(`http://sefdb02.qut.edu.au:3000/movies/data/${id}`);
                 const data = await res.json();
-                tempArray.push(data); // Add fetched data to temporary array
+                tempArray.push(data);
             } catch (error) {
                 if (error.response && error.response.status == 401) {
                     setError("unauthorized access, please log in")
@@ -123,64 +114,43 @@ export const PersonPage = () => {
         for (const data of tempArray) {
             genreArray.push(data.genres)
 
-            let matchFound = false; // Flag variable to track if a match was found
+            let matchFound = false;
 
             for (let i = 0; i < yearArray.length; i++) {
                 if (data.year == yearArray[i]) {
-                    // console.log("this is all year Arr: " + yearArray);
-                    // console.log("upcoming year: " + data.year + " existing year: " + yearArray[i]);
+
                     boxofficeArray[i] += data.boxoffice;
-                    // ratingArray[i] += data.ratings[0].value
-                    // console.log("data is: " + data.ratings[0].value)
-                    // repeatYearArr.push(data.year);
-                    // yearArray.push(data.year);
-                    // console.log("The result of two box office plus: " + boxofficeArray[i]);
+
                     matchFound = true;
-                    break; // Exit the loop since a match was found
+                    break;
                 }
             }
 
             if (!matchFound) {
-                // console.log("when two year is not equal: yearArr: " + yearArray + " dataYear: " + data.year);
-                // console.log("when two year is not equal, boxoffice: " + boxofficeArray);
+
                 yearArray.push(data.year);
                 boxofficeArray.push(data.boxoffice);
-                // repeatYearArr.push(data.year)
-                // ratingArray.push(data.ratings[0].value)
+
             }
         }
         setBoxoffices(boxofficeArray)
-        // setYears(yearArray)
         const flattenedArray = genreArray.flat(Infinity);
         let uniqueGenres = Array.from(new Set(flattenedArray));
-        // let uniqueYears = Array.from(new Set(yearArray))
         let occurancetimes = []
-        // let occuranceYears = []
-        // console.log("unique years:" + uniqueYears)
+
         console.log("genres array: " + uniqueGenres)
         for (const genre of uniqueGenres) {
             let occurrences = countOccurrences(flattenedArray, genre);
 
             occurancetimes.push(occurrences)
         }
-        // for (const year of uniqueYears) {
-        //     let occurrencesY = countOccurrences(yearArray, year)
-        //     occuranceYears.push(occurrencesY)
-        // }
+
 
         setUniqueGenres(uniqueGenres)
         setOccuranceTimes(occurancetimes)
-        // console.log(occuranceYears)
-        // console.log(ratingArray)
-        // for (let i = 0; i < ratingArray.length; i++) {
-        //     averageRatingArray.push(ratingArray[i] / occuranceYears[i])
-        // }
+
         setYears(yearArray)
-        // for (const genre of uniqueGenres) {
-        //     console.log(genre)
-        // }
-        // console.log(boxofficeArray);
-        // console.log(yearArray);
+
         setFinish(true)
     };
     const mapData = () => {
@@ -191,10 +161,8 @@ export const PersonPage = () => {
         if (roles_arr && status == false) {
             for (const role of roles_arr) {
                 ID_arr.push(role.movieId)
-                // console.log(role)
             }
             console.log(ID_arr)
-            // setData(ID_arr)
             fetchMoreData(ID_arr)
             setStatus(true)
         }
@@ -207,7 +175,7 @@ export const PersonPage = () => {
 
                 {headlines.deathYear && <p>Death Year:{headlines.deathYear}</p>}
                 <p>Movies Performed:</p>
-                <table className='table'>
+                <Table bordered striped>
                     <thead >
                         <tr className='danger'>
 
@@ -220,7 +188,7 @@ export const PersonPage = () => {
                     </thead>
                     <tbody>
                         {roles_arr.map((role) => (
-                            <tr key={role.movieId} className='table-info'>
+                            <tr key={role.movieId}>
                                 <th> {role.movieName}</th>
                                 <th><Link to={`/movie/${role.movieId}`} onClick={() => {
                                     console.log(role.movieId);
@@ -235,7 +203,7 @@ export const PersonPage = () => {
 
                         ))}
                     </tbody>
-                </table>
+                </Table>
             </div>
         )
     }
@@ -244,6 +212,32 @@ export const PersonPage = () => {
     }
     if (error) {
         return <p>Something went wrong: {error.message}</p>;
+    }
+    if (!tokenState) {
+
+        return (
+            <div>
+                <Navigation />
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+
+                    <img src='https://i.pinimg.com/564x/33/42/e4/3342e4ba684ff017acff7382cad86c7f.jpg' alt='401 error' ></img>
+                </div>
+
+
+
+
+                <div style={{ justifyContent: 'center', display: 'flex' }}>
+
+                    <h4>You need to <Link to="/login">Login</Link> to access this page</h4>
+
+                </div>
+            </div>
+        )
+
+
+
+
+
     }
     if (notFound) {
         return (

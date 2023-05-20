@@ -8,6 +8,8 @@ export const SearchPerson = () => {
     const [headlines, setHeadlines] = useState([])
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState()
+    const [tokenState, setTokenState] = useState()
+
     const handleSubmit = (event) => {
         event.preventDefault();
         setData(records)
@@ -22,6 +24,7 @@ export const SearchPerson = () => {
     useEffect(() => {
         const fetchData = async () => {
             const token = localStorage.getItem("token")
+            setTokenState(token)
             try {
                 const response = await fetch(`http://sefdb02.qut.edu.au:3000/people/${encodeURIComponent(data)}`, {
                     method: "GET",
@@ -94,12 +97,6 @@ export const SearchPerson = () => {
             console.log(nameArr)
 
         }
-
-        // }
-        // if (roles_arr.length > 5) {
-        //     nameArr = nameArr.slice(0, desiredLength)
-        // }
-
         const newNameArr = join(nameArr)
         console.log(newNameArr)
         return newNameArr
@@ -134,14 +131,6 @@ export const SearchPerson = () => {
             </Card>
 
 
-
-
-
-
-
-
-
-
         )
 
     }
@@ -159,13 +148,13 @@ export const SearchPerson = () => {
         )
 
     }
+
     return (
 
         <div>
             <Navigation />
 
-
-            <div className='p-5 bg-light'>
+            {tokenState && <div className='p-5 bg-light'>
 
                 <form onSubmit={handleSubmit}>
                     <div style={{ display: 'flex' }}>
@@ -179,7 +168,31 @@ export const SearchPerson = () => {
                     {mapData()}
 
                 </div>
-            </div >
+            </div >}
+            {!tokenState &&
+
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    {/* // <div style={{ justifyContent: 'center' }}> */}
+
+                    <img src='https://i.pinimg.com/564x/33/42/e4/3342e4ba684ff017acff7382cad86c7f.jpg' alt='401 error' ></img>
+                </div>
+
+
+
+            }
+            {!tokenState &&
+
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    {/* // <div style={{ justifyContent: 'center' }}> */}
+
+                    <h4>You need to <Link to="/login">Login</Link> to access this page</h4>
+
+                </div>
+
+
+
+            }
+
         </div>
 
     )
