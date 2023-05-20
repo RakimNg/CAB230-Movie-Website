@@ -50,6 +50,7 @@ export function Login() {
     }
     const handleSubmit = (event) => {
         event.preventDefault();
+        localStorage.setItem("email", email)
         console.log(`Email: ${email}, Password: ${password}`);
         PostData()
     };

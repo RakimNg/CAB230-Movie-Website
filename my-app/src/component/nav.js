@@ -11,6 +11,7 @@ export function Navigation() {
     let token = localStorage.getItem("token")
     const radioButton = localStorage.getItem("radioButton")
     const [refreshStatus, setRefreshStatus] = useState(0)
+    const [localStorageValue, setLocalStorageValue] = useState('');
 
     const refresh = async () => {
         const response = await fetch(`http://sefdb02.qut.edu.au:3000/user/refresh`, {
@@ -36,6 +37,9 @@ export function Navigation() {
     }
 
     useEffect(() => {
+        const username = localStorage.getItem('email')
+        console.log(username)
+        setLocalStorageValue(username)
         if (refreshToken && new_timestamp - timestamp > 590000 && radioButton == 'true') {
             console.log("refresh conditions activated ")
             refresh()
@@ -92,6 +96,7 @@ export function Navigation() {
                             </li>
 
                         </Link>
+                        <p>{localStorageValue}</p>
                     </ul>
                 </nav>
                 <div class="alert-container">
@@ -206,6 +211,7 @@ export function Navigation() {
                             </li>
 
                         </Link>
+                        <p>{localStorageValue}</p>
                     </ul>
                 </nav>
 

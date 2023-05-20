@@ -155,7 +155,7 @@ export const MoviePage = () => {
                                 <th><Link to={`/person/${principal.id}`} onClick={() => {
 
 
-                                    localStorage.setItem("personID", principal.id);
+                                    localStorage.removeItem("personID");
 
 
                                 }} >{principal.id}</Link></th>
