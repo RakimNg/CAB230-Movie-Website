@@ -28,14 +28,14 @@ export function Homepage() {
                                 <Col sm={3}>
 
                                     <Card>
-
-                                        <CardImg
-                                            alt="Card image cap"
-                                            src={imgArr[index]}
-                                            top
-                                            width="100%"
-                                        />
-
+                                        <Link to={`movie/${headlines.imdbID}`}>
+                                            <CardImg
+                                                alt="Card image cap"
+                                                src={imgArr[index]}
+                                                top
+                                                width="100%"
+                                            />
+                                        </Link>
 
 
                                         <CardBody>
@@ -58,6 +58,7 @@ export function Homepage() {
                                             }}>View</Button>
                                         </CardBody>
                                     </Card>
+
                                 </Col>
                             ))}
                         </CardGroup>

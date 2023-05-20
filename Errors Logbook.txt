@@ -135,3 +135,11 @@ make multiple dimension array to one dimension
 ===================================
 how to center a div in jsx: <div style={{ display: 'flex', justifyContent: 'center' }}>
 =====================================================
+
+when you put fetch in a func or a if statement in a func or just a if statement, it is very likely it will be executed
+more than once. The solution is to put the if statement in a useEffect. Like when the func is executed, set useState
+and do something like useEffect (() =>{},[useState variable]) it will be working
+And remember the useEffect will be executed when the func rendering in the begining no matter what
+value you put in the bracket, not just when the variable changed.
+
+====================================================
