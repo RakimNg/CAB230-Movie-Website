@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Pagination, PaginationLink, Spinner, PaginationItem, Table } from 'reactstrap';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Navigation } from './nav';
 
 export function MoviesLib() {
@@ -54,42 +54,23 @@ export function MoviesLib() {
 
     const handleFirstPageClick = () => {
         setPage(1)
-        // window.scrollTo({ top: 0, behavior: 'auto' });
     }
     const handleLastPageClick = () => {
         setPage(lastpage)
-        // window.scrollTo({ top: 0, behavior: 'auto' });
     }
     const handleNextPageClick = () => {
         if (page < lastpage) {
             setPage(page + 1)
 
         }
-        // window.scrollTo({ top: 0, behavior: 'auto' });
     }
     const handlePreviousPageClick = () => {
         if (page > 1) {
             setPage(page - 1)
 
         }
-        // window.scrollTo({ top: 0, behavior: 'auto' });
     }
-    // return { loading, error, headlines };
-    // };
 
-    // const Filter = (event) => {
-    //     const regex = /^tt\d{7}$/;
-    //     if (regex.test(event.target.value)) {
-
-    //         setRecords(headlines.data.filter(f => f.imdbID === event.target.value))
-    //     }
-    //     else {
-    //         setRecords(headlines.data.filter(f => f.title.toLowerCase().includes(event.target.value.toLowerCase())))
-
-    //     }
-    //     // }
-    //     console.log(records)
-    // }
     const mapData = () => {
         return (
 
@@ -165,7 +146,6 @@ export function MoviesLib() {
 
 
 
-                    {/* <table className='table'> */}
                     <Table striped bordered>
                         <thead>
                             <tr>
@@ -182,7 +162,6 @@ export function MoviesLib() {
 
 
                         </tbody>
-                        {/* </table > */}
                     </Table>
                     <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
                         <Pagination aria-label="Page navigation example">

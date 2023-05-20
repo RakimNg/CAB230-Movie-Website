@@ -1,7 +1,7 @@
 import { Navigation } from './nav';
-import { Nav, NavItem, NavLink, Container, Row, Col, Card, CardGroup, CardBody, CardTitle, CardText, CardSubtitle, Button, CardImg, UncontrolledCarousel, Label, Input } from 'reactstrap';
+import { Card, CardBody, CardTitle, CardText } from 'reactstrap';
 import React, { useEffect, useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 export const SearchPerson = () => {
     const [records, setRecords] = useState([])
     const [data, setData] = useState([])
@@ -38,9 +38,6 @@ export const SearchPerson = () => {
                 if (response.status === 401) {
                     setError('You do not have access for that.')
                 }
-                // if (response.status == 404) {
-                //     setError('The id you provided doesnt exist.')
-                // }
                 const data1 = await response.json()
 
                 setHeadlines(data1)
@@ -172,7 +169,6 @@ export const SearchPerson = () => {
             {!tokenState &&
 
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    {/* // <div style={{ justifyContent: 'center' }}> */}
 
                     <img src='https://i.pinimg.com/564x/33/42/e4/3342e4ba684ff017acff7382cad86c7f.jpg' alt='401 error' ></img>
                 </div>
@@ -183,7 +179,6 @@ export const SearchPerson = () => {
             {!tokenState &&
 
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    {/* // <div style={{ justifyContent: 'center' }}> */}
 
                     <h4>You need to <Link to="/login">Login</Link> to access this page</h4>
 

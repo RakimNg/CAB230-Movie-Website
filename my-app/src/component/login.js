@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../CSS/RegisterAndLogin.css'; // import CSS file for styling
-import { Register } from './register';
 import { Alert } from 'reactstrap';
 
 export function Login() {

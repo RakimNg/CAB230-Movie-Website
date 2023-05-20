@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Navigation } from './nav';
 import '../CSS/radiobutton.css'
 import { Link } from 'react-router-dom';
-import { Button } from 'reactstrap';
+
 export const SettingPage = () => {
     const [selectedOption, setSelectedOption] = useState('');
     const [tokenStatus, setTokenStatus] = useState()
@@ -21,7 +21,6 @@ export const SettingPage = () => {
     }
     const handleOptionChange = (event) => {
         setSelectedOption(event.target.value);
-        // console.log(event.target.value)
     };
     useEffect(() => {
         setTokenStatus(localStorage.getItem("token"))
@@ -40,7 +39,6 @@ export const SettingPage = () => {
             <div>
                 <Navigation />
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    {/* // <div style={{ justifyContent: 'center' }}> */}
 
                     <img src='https://i.pinimg.com/564x/33/42/e4/3342e4ba684ff017acff7382cad86c7f.jpg' alt='401 error' ></img>
                 </div>
@@ -66,7 +64,7 @@ export const SettingPage = () => {
             <Navigation />
             <div className="settings-container">
                 <div className="settings-panel">
-                    <h2>Login Expire in</h2>
+                    <h2>Login Expires in</h2>
                     <form onSubmit={handleSubmit}>
                         <div className="radio-container">
                             <label>
@@ -95,7 +93,6 @@ export const SettingPage = () => {
                         </div>
                         <button >Save</button>
                     </form>
-                    {/* <button onClick={handleSubmit()}>Save</button> */}
                 </div>
             </div>
         </div>

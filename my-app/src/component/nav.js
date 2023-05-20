@@ -1,8 +1,7 @@
-import { Alert, Nav, NavItem, Container, Row, Col, Card, CardGroup, CardBody, CardTitle, CardText, CardSubtitle, Button, CardImg, UncontrolledCarousel, Label, Input } from 'reactstrap';
+import { Alert } from 'reactstrap';
 import React, { useEffect, useState } from 'react';
-import { Homepage } from './homepage';
-import { MoviesLib } from './library';
-import { RouterProvider, createBrowserRouter, BrowserRouter, Routes, Router, Route, NavLink, Link, useNavigate } from "react-router-dom";
+
+import { Link } from "react-router-dom";
 import '../CSS/nav.css';
 export function Navigation() {
     const timestamp = localStorage.getItem("timestamp")

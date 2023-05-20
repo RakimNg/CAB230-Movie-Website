@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Alert } from 'reactstrap';
-import { Link, useNavigate } from 'react-router-dom';
-import '../CSS/RegisterAndLogin.css';// import CSS file for styling
+import { Link } from 'react-router-dom';
+import '../CSS/RegisterAndLogin.css';
 
 export function Register() {
 
@@ -10,7 +10,6 @@ export function Register() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [alert, setAlert] = useState()
     const [status, setStatus] = useState()
-    const navigate = useNavigate();
 
     const fetchData = async () => {
         const response = await fetch('http://sefdb02.qut.edu.au:3000/user/register', {
@@ -28,13 +27,6 @@ export function Register() {
         setStatus(response.status)
         const data = await response.json()
         console.log(data)
-        // .then(response => response.json())
-        // .then(data => {
-        //     console.log(data);
-        // })
-        // .catch(error => {
-        //     console.error(error);
-        // });
     }
     const handleSubmit = (event) => {
         event.preventDefault();

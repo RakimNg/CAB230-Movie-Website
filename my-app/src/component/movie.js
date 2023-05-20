@@ -1,7 +1,6 @@
-import { MoviesLib } from './library';
 import { Navigation } from './nav';
-import { Button, Alert, Spinner, Table } from 'reactstrap';
-import { useNavigate, Link, useParams } from 'react-router-dom';
+import { Spinner, Table } from 'reactstrap';
+import { Link, useParams } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { PageNotFound } from './404';
 export const MoviePage = () => {
@@ -155,7 +154,6 @@ export const MoviePage = () => {
                                 <th><Link to={`/person/${principal.id}`} onClick={() => {
 
 
-                                    localStorage.removeItem("personID");
 
 
                                 }} >{principal.id}</Link></th>

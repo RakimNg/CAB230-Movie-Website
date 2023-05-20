@@ -1,8 +1,8 @@
 import '../CSS/hero.css'
 import '../CSS/card.css'
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
-import { Spinner, Nav, NavItem, NavLink, Container, Row, Col, Card, CardGroup, CardBody, CardTitle, CardText, CardSubtitle, Button, CardImg, UncontrolledCarousel, Label, Input } from 'reactstrap';
+import { Spinner, Container, Row, Col, Card, CardGroup, CardBody, CardTitle, CardText, CardSubtitle, Button, CardImg } from 'reactstrap';
 import { Navigation } from './nav';
 export function Homepage() {
     const [loading, setLoading] = useState(true);
@@ -79,8 +79,6 @@ export function Homepage() {
             try {
                 const res = await fetch('http://sefdb02.qut.edu.au:3000/movies/search?title=star%20war');
                 const data = await res.json();
-                // const dataArray = data.data;
-                // const MovieToday = [dataArray[0], dataArray[1], dataArray[2]]
                 setHeadlines(data);
 
             } catch (error) {

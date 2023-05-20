@@ -1,9 +1,9 @@
-import { Link, useNavigate, useLocation, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { PageNotFound } from './404';
 import { Spinner, Table } from 'reactstrap';
 import React, { useEffect, useState } from 'react';
 import { Navigation } from './nav'
-import { PieChart, Pie, Cell, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import { BarChart, Bar } from 'recharts';
 import '../CSS/chart.css'
 export const PersonPage = () => {
