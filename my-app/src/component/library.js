@@ -16,10 +16,7 @@ export function MoviesLib() {
     const regex = /^tt\d{7}$/;
     const handleInputChange = (event) => {
         setInput(event.target.value)
-        if (input.startsWith('tt')) {
-            setRecords(data.filter(f => f.imdbID.toLowerCase().includes(event.target.value.toLowerCase())))
-        }
-        else if (input == '') {
+        if (input == '') {
             setRecords(data)
             console.log(headlines)
         }
