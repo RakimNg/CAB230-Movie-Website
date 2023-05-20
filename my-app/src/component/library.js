@@ -13,34 +13,46 @@ export function MoviesLib() {
     const [page, setPage] = useState(1)
     const [lastpage, setLastPage] = useState()
     const navigate = useNavigate()
+    const regex = /^tt\d{7}$/;
     const handleInputChange = (event) => {
-        const regex = /^tt\d{7}$/;
-
-        if (regex.test(event.target.value)) {
-            navigate(`/movie/${event.target.value}`)
-            event.preventDefault()
-
-        }
-        console.log(event.target.value)
         setInput(event.target.value)
+        if (input.startsWith('tt')) {
+            setRecords(data.filter(f => f.imdbID.toLowerCase().includes(event.target.value.toLowerCase())))
+        }
+        else if (input == '') {
+            setRecords(data)
+            console.log(headlines)
+        }
+        else {
+
+            setRecords(data.filter(f => f.title.toLowerCase().includes(event.target.value.toLowerCase())))
+        }
+
+
     }
     const handleSubmit = (event) => {
-        setPage(1)
         event.preventDefault()
+        if (regex.test(input)) {
+            navigate(`/movie/${input}`)
+        }
+        setPage(1)
+
         setHeadlines(input)
 
     }
+
     useEffect(() => {
         const fetchMovie = async () => {
             try {
 
-                const res = await fetch(`http://sefdb02.qut.edu.au:3000/movies/search?title=${encodeURIComponent(headlines)}&page=${page}`);
+                const res = await fetch(`http://sefdb02.qut.edu.au:3000/movies/search?title=${(headlines)}&page=${page}`);
 
                 const data = await res.json();
                 const dataArray = data;
                 const pages = dataArray.pagination
                 setLastPage(pages.lastPage)
                 setRecords(dataArray.data)
+                setData(dataArray.data)
                 console.log(dataArray)
 
             } catch (error) {
