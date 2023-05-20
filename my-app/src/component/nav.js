@@ -36,7 +36,13 @@ export function Navigation() {
     }
 
     useEffect(() => {
-        const username = localStorage.getItem('email')
+        const etc = '...'
+        let username = localStorage.getItem('email')
+        if (username.length > 14) {
+            username = username.slice(0, 12)
+            username = username + etc
+        }
+
         console.log(username)
         setLocalStorageValue(username)
         if (refreshToken && new_timestamp - timestamp > 590000 && radioButton == 'true') {
