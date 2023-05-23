@@ -190,35 +190,39 @@ export const PersonPage = () => {
 
                 {headlines.deathYear && <p>Death Year:{headlines.deathYear}</p>}
                 <p>Movies Performed:</p>
-                <Table bordered striped>
-                    <thead >
-                        <tr className='danger'>
+                <div className='p-5 bg-light'>
+                    <div className='bg-white shadow border'>
+                        <Table bordered striped>
+                            <thead >
+                                <tr className='danger'>
 
-                            <th>Movie Name</th>
-                            <th>Movie ID</th>
-                            <th>Category</th>
-                            <th>Character</th>
-                            <th>IMDB Rating</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {roles_arr.map((role) => (
-                            <tr key={role.movieId}>
-                                <th> {role.movieName}</th>
-                                <th><Link to={`/movie/${role.movieId}`} onClick={() => {
-                                    console.log(role.movieId);
-                                    localStorage.setItem("imdbID", role.movieId);
-                                }} >{role.movieId}</Link></th>
-                                <th>{role.category}</th>
-                                {role.characters && <th>{role.characters}</th>}
-                                <th> {role.imdbRating}</th>
+                                    <th>Movie Name</th>
+                                    <th>Movie ID</th>
+                                    <th>Category</th>
+                                    <th>Character</th>
+                                    <th>IMDB Rating</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {roles_arr.map((role) => (
+                                    <tr key={role.movieId}>
+                                        <td> {role.movieName}</td>
+                                        <td><Link to={`/movie/${role.movieId}`} onClick={() => {
+                                            console.log(role.movieId);
+                                            localStorage.setItem("imdbID", role.movieId);
+                                        }} >{role.movieId}</Link></td>
+                                        <td>{role.category}</td>
+                                        {role.characters && <td>{role.characters}</td>}
+                                        <td> {role.imdbRating}</td>
 
 
-                            </tr>
+                                    </tr>
 
-                        ))}
-                    </tbody>
-                </Table>
+                                ))}
+                            </tbody>
+                        </Table>
+                    </div>
+                </div>
             </div>
         )
     }

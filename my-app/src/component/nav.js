@@ -38,8 +38,8 @@ export function Navigation() {
     useEffect(() => {
         const etc = '...'
         let username = localStorage.getItem('email')
-        if (username.length > 14) {
-            username = username.slice(0, 12)
+        if (username && username.length > 14) {
+            username = username.slice(0, 11)
             username = username + etc
         }
 

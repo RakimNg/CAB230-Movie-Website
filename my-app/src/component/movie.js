@@ -79,30 +79,34 @@ export const MoviePage = () => {
                         </div>
                     ))}
                     <p>Participants</p>
-                    <Table bordered striped>
-                        <thead >
-                            <tr className='danger'>
+                    <div className='p-5 bg-light'>
+                        <div className='bg-white shadow border'>
+                            <Table bordered striped>
+                                <thead >
+                                    <tr className='danger'>
 
-                                <th>ID</th>
-                                <th>Category</th>
-                                <th>Name</th>
-                                <th>Characters</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {principals_arr.map((principal) => (
+                                        <th>ID</th>
+                                        <th>Category</th>
+                                        <th>Name</th>
+                                        <th>Characters</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {principals_arr.map((principal) => (
 
-                                <tr key={principal.id}>
+                                        <tr key={principal.id}>
 
-                                    <th>{principal.id}</th>
-                                    <th>{principal.category}</th>
-                                    <th>{principal.name} </th>
-                                    <th>{principal.characters}</th>
+                                            <td>{principal.id}</td>
+                                            <td>{principal.category}</td>
+                                            <td>{principal.name} </td>
+                                            <td>{principal.characters}</td>
 
-                                </tr>
-                            ))}
-                        </tbody>
-                    </Table>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </Table>
+                        </div>
+                    </div>
 
                 </div>
 
@@ -135,38 +139,41 @@ export const MoviePage = () => {
                     </div>
                 ))}
                 <p>Participants</p>
-                {/* <table className='table'> */}
-                <Table bordered striped>
-                    <thead >
-                        <tr className='danger'>
+                <div className='p-5 bg-light'>
+                    <div className='bg-white shadow border'>
 
-                            <th>ID</th>
-                            <th>Category</th>
-                            <th>Name</th>
-                            <th>Characters</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {principals_arr.map((principal) => (
+                        <Table bordered striped>
+                            <thead >
+                                <tr className='danger'>
 
-                            <tr key={principal.id}>
+                                    <th>ID</th>
+                                    <th>Category</th>
+                                    <th>Name</th>
+                                    <th>Characters</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {principals_arr.map((principal) => (
 
-                                <th><Link to={`/person/${principal.id}`} onClick={() => {
+                                    <tr key={principal.id}>
+
+                                        <td><Link to={`/person/${principal.id}`} onClick={() => {
 
 
 
 
-                                }} >{principal.id}</Link></th>
-                                <th>{principal.category}</th>
-                                <th>{principal.name} </th>
-                                <th>{principal.characters}</th>
+                                        }} >{principal.id}</Link></td>
+                                        <td>{principal.category}</td>
+                                        <td>{principal.name} </td>
+                                        <td>{principal.characters}</td>
 
-                            </tr>
-                        ))}
-                    </tbody>
-                    {/* </table> */}
-                </Table>
-
+                                    </tr>
+                                ))}
+                            </tbody>
+                            {/* </table> */}
+                        </Table>
+                    </div>
+                </div>
             </div>
 
 
